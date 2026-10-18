@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Бинго ойыны — Дәстүрлі / Дәстүрлі емес</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #059669;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --selected: #fef08a;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 16px;
+      max-width: 980px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .instructions-kk {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .instructions-ru {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px dashed var(--border);
+      padding-top: 10px;
+      margin-top: 8px;
+    }
+
+    .hint {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .hint strong {
+      color: var(--primary);
+    }
+
+    .word-bank {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .word-bank h2 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .word-count {
+      font-size: 0.85rem;
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 2px 10px;
+      border-radius: 999px;
+    }
+
+    .words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .word {
+      background: #f1f5f9;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .word:hover {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .word.selected {
+      background: var(--selected);
+      border-color: #eab308;
+      box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
+      transform: scale(1.05);
+    }
+
+    .word.moved {
+      opacity: 0.35;
+      pointer-events: none;
+      text-decoration: line-through;
+    }
+
+    .tables {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .tables {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .table-box {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      border: 2px solid var(--border);
+      min-height: 220px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+
+    .table-box:hover {
+      border-color: var(--primary);
+    }
+
+    .table-box.active-target {
+      border-color: var(--success);
+      background: #ecfdf5;
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+    }
+
+    .table-box h3 {
+      font-size: 1.15rem;
+      text-align: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+      color: var(--primary-dark);
+    }
+
+    .drop-zone {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 140px;
+      align-content: flex-start;
+    }
+
+    .dropped-word {
+      background: #dbeafe;
+      border: 1px solid #93c5fd;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: popIn 0.25s ease;
+      position: relative;
+    }
+
+    .dropped-word:hover {
+      background: #bfdbfe;
+    }
+
+    .dropped-word.correct {
+      background: #d1fae5;
+      border-color: #34d399;
+    }
+
+    .dropped-word.incorrect {
+      background: #fee2e2;
+      border-color: #f87171;
+    }
+
+    .dropped-word .remove {
+      font-size: 1.1rem;
+      line-height: 1;
+      color: var(--danger);
+      font-weight: bold;
+      opacity: 0.7;
+    }
+
+    .dropped-word .remove:hover {
+      opacity: 1;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Tooltip for Russian translation */
+    .tooltip {
+      position: fixed;
+      background: #1e293b;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 1rem;
+      z-index: 1000;
+      pointer-events: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      max-width: 260px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tooltip small {
+      display: block;
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    button.btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      box-shadow: var(--shadow);
+    }
+
+    button.btn:hover {
+      background: var(--primary-dark);
+    }
+
+    button.btn.secondary {
+      background: #64748b;
+    }
+
+    button.btn.secondary:hover {
+      background: #475569;
+    }
+
+    button.btn.success {
+      background: var(--success);
+    }
+
+    button.btn.success:hover {
+      background: #047857;
+    }
+
+    .score {
+      text-align: center;
+      margin: 16px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    /* Results / Verification panel */
+    #results-panel {
+      display: none;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    #results-panel h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: var(--primary-dark);
+    }
+
+    .result-item {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #94a3b8;
+    }
+
+    .result-item.correct {
+      border-left-color: var(--success);
+      background: #ecfdf5;
+    }
+
+    .result-item.incorrect {
+      border-left-color: var(--danger);
+      background: #fef2f2;
+    }
+
+    .result-item .word-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .result-item .status {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .result-item .explanation {
+      font-size: 0.9rem;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .summary {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 20px 0 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f1f5f9;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>АЙТЫЛЫМ — 9-тапсырма</h1>
+    <p class="instructions-kk">
+      «Бинго» ойыны. «Дәстүрлі», «дәстүрлі емес» деген сөздер тіркесетін сөздерді тауып, 
+      сөз тіркесін құраңдар. Көп сөз тіркесін құраған оқушы жеңімпаз болады.
+    </p>
+    <p class="instructions-ru">
+      УСТНАЯ РЕЧЬ — Задание 9. Игра «Бинго». Найдите слова, которые сочетаются со словами 
+      «традиционный» и «нетрадиционный», составьте словосочетания. 
+      Ученик, составивший наибольшее количество словосочетаний, становится победителем.
+    </p>
+  </header>
+
+  <div class="hint">
+    <strong>Қалай ойнау керек / Как играть:</strong><br>
+    1. Сөзді басыңыз (клик) → таңдалады<br>
+    2. Кестені басыңыз → сөз сол жерге көшеді<br>
+    3. Сөзді ұзақ басып тұрыңыз → орысша аудармасын көресіз<br>
+    4. × батырмасымен сөзді қайтара аласыз (ол қайта белсенді болады)
+  </div>
+
+  <div class="word-bank">
+    <h2>
+      Сөздер / Слова
+      <span class="word-count" id="remaining-count">28</span>
+    </h2>
+    <div class="words" id="word-bank"></div>
+  </div>
+
+  <div class="tables">
+    <div class="table-box" id="traditional" data-category="traditional">
+      <h3>дәстүрлі</h3>
+      <div class="drop-zone" id="traditional-zone"></div>
+    </div>
+    <div class="table-box" id="non-traditional" data-category="non-traditional">
+      <h3>дәстүрлі емес</h3>
+      <div class="drop-zone" id="non-traditional-zone"></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="resetGame()">Қайта бастау / Сброс</button>
+    <button class="btn success" onclick="checkAnswers()">Тексеру / Проверить</button>
+  </div>
+
+  <div class="score" id="score" style="display:none;"></div>
+
+  <div id="results-panel">
+    <h2>Нәтижелер / Результаты проверки</h2>
+    <div id="results-list"></div>
+    <div class="summary" id="summary"></div>
+  </div>
+
+  <div class="tooltip" id="tooltip">
+    <span id="tooltip-text"></span>
+    <small>орысша аударма / перевод</small>
+  </div>
+
+  <footer>
+    Бинго ойыны • Дәстүрлі / Дәстүрлі емес
+  </footer>
+
+  <script>
+    // ===== DATA =====
+    // correct: "traditional" or "non-traditional"
+    const words = [
+      { kk: "Би", ru: "танец", correct: "traditional",
+        why: "Қазақтың ұлттық биі — ежелден келе жатқан дәстүрлі өнер." },
+      { kk: "нан", ru: "хлеб", correct: "traditional",
+        why: "Нан — қазақ дастарқанының қасиетті және дәстүрлі тағамы." },
+      { kk: "дін", ru: "религия", correct: "traditional",
+        why: "Дін — халықтың ғасырлар бойы қалыптасқан дәстүрлі сенімі." },
+      { kk: "сабақ", ru: "урок", correct: "traditional",
+        why: "Дәстүрлі сабақ — классикалық оқыту формасы." },
+      { kk: "су", ru: "вода", correct: "non-traditional",
+        why: "Су — жалпы сөз, «дәстүрлі су» тіркесі сирек қолданылады." },
+      { kk: "тамақ", ru: "еда", correct: "traditional",
+        why: "Дәстүрлі тамақ — ұлттық ас мәзіріне жатады." },
+      { kk: "дастарқан", ru: "дастархан", correct: "traditional",
+        why: "Дастарқан — қазақтың ең маңызды дәстүрлі рәсімдерінің бірі." },
+      { kk: "бу", ru: "пар", correct: "non-traditional",
+        why: "Бу — техникалық ұғым, дәстүрлі емес контекстте қолданылады." },
+      { kk: "ем", ru: "лечение", correct: "traditional",
+        why: "Дәстүрлі ем — халықтық медицина әдістері." },
+      { kk: "кондитерлік өнім", ru: "кондитерское изделие", correct: "non-traditional",
+        why: "Кондитерлік өнімдер — заманауи өндіріс нәтижесі, дәстүрлі емес." },
+      { kk: "теңіз", ru: "море", correct: "non-traditional",
+        why: "Теңіз — географиялық объект, «дәстүрлі теңіз» тіркесі жоқ." },
+      { kk: "айтыс", ru: "айтыс", correct: "traditional",
+        why: "Айтыс — қазақтың ежелгі дәстүрлі ауыз әдебиеті жанры." },
+      { kk: "мәдениет", ru: "культура", correct: "traditional",
+        why: "Дәстүрлі мәдениет — ұлттың тарихи-мәдени мұрасы." },
+      { kk: "білім", ru: "знание", correct: "non-traditional",
+        why: "Мысалда берілгендей, «білім» көбінесе дәстүрлі емес бағанда." },
+      { kk: "қуат көзі", ru: "источник энергии", correct: "non-traditional",
+        why: "Қуат көзі — заманауи техникалық термин." },
+      { kk: "теледидар", ru: "телевизор", correct: "non-traditional",
+        why: "Теледидар — XX ғасырдың өнертабысы, дәстүрлі емес." },
+      { kk: "кітап көрмесі", ru: "книжная выставка", correct: "non-traditional",
+        why: "Кітап көрмесі — қазіргі мәдени іс-шара, дәстүрлі емес." },
+      { kk: "адам", ru: "человек", correct: "traditional",
+        why: "Дәстүрлі адам / дәстүрлі қоғам ұғымы қолданылады." },
+      { kk: "терезе", ru: "окно", correct: "non-traditional",
+        why: "Мысалда берілгендей, «терезе» дәстүрлі емес бағанда." },
+      { kk: "сарқылмайтын энергия көзі", ru: "неисчерпаемый источник энергии", correct: "non-traditional",
+        why: "Жаңартылатын энергия — заманауи экологиялық ұғым." },
+      { kk: "мұнай", ru: "нефть", correct: "non-traditional",
+        why: "Мұнай — өнеркәсіптік шикізат, дәстүрлі емес." },
+      { kk: "культтер", ru: "культы", correct: "non-traditional",
+        why: "Культтер көбінесе дәстүрлі емес діни ағымдарға қатысты." },
+      { kk: "жиналыс", ru: "собрание", correct: "traditional",
+        why: "Дәстүрлі жиналыс — ауыл/ру жиыны сияқты тарихи форма." },
+      { kk: "есік", ru: "дверь", correct: "non-traditional",
+        why: "Есік — тұрмыстық зат, «дәстүрлі есік» сирек тіркес." },
+      { kk: "есеп", ru: "счёт", correct: "non-traditional",
+        why: "Есеп — математикалық/қаржылық термин, дәстүрлі емес." },
+      { kk: "шикізат қоры", ru: "запас сырья", correct: "non-traditional",
+        why: "Шикізат қоры — экономикалық термин, заманауи." },
+      { kk: "еден", ru: "пол", correct: "non-traditional",
+        why: "Еден — тұрмыстық элемент, дәстүрлі емес тіркес." },
+      { kk: "медицина", ru: "медицина", correct: "traditional",
+        why: "Дәстүрлі медицина — халықтық емдеу әдістері." }
+    ];
+
+    // State
+    let selectedWord = null;
+    let longPressTimer = null;
+    let isLongPress = false;
+    const LONG_PRESS_MS = 550;
+    let checked = false;
+
+    // ===== INIT =====
+    function init() {
+      const bank = document.getElementById('word-bank');
+      bank.innerHTML = '';
+
+      words.forEach((w, index) => {
+        const el = document.createElement('div');
+        el.className = 'word';
+        el.textContent = w.kk;
+        el.dataset.index = index;
+        el.dataset.ru = w.ru;
+
+        el.addEventListener('click', (e) => {
+          if (isLongPress) {
+            isLongPress = false;
+            return;
+          }
+          if (checked) return;
+          selectWord(el, index);
+        });
+
+        el.addEventListener('mousedown', (e) => startLongPress(e, el));
+        el.addEventListener('mouseup', cancelLongPress);
+        el.addEventListener('mouseleave', cancelLongPress);
+        el.addEventListener('touchstart', (e) => startLongPress(e, el), { passive: true });
+        el.addEventListener('touchend', cancelLongPress);
+        el.addEventListener('touchcancel', cancelLongPress);
+
+        bank.appendChild(el);
+      });
+
+      document.getElementById('traditional').addEventListener('click', () => {
+        if (!checked) moveToCategory('traditional');
+      });
+      document.getElementById('non-traditional').addEventListener('click', () => {
+        if (!checked) moveToCategory('non-traditional');
+      });
+
+      updateCount();
+    }
+
+    function selectWord(el, index) {
+      document.querySelectorAll('.word.selected').forEach(w => w.classList.remove('selected'));
+
+      if (selectedWord === index) {
+        selectedWord = null;
+        document.querySelectorAll('.table-box').forEach(t => t.classList.remove('active-target'));
+        return;
+      }
+
+      selectedWord = index;
+      el.classList.add('selected');
+      document.querySelectorAll('.table-box').forEach(t => t.classList.add('active-target'));
+    }
+
+    function moveToCategory(category) {
+      if (selectedWord === null || checked) return;
+
+      const wordData = words[selectedWord];
+      const wordEl = document.querySelector(`.word[data-index="${selectedWord}"]`);
+
+      if (!wordEl || wordEl.classList.contains('moved')) return;
+
+      wordEl.classList.add('moved');
+      wordEl.classList.remove('selected');
+
+      const zone = document.getElementById(category + '-zone');
+      const chip = document.createElement('div');
+      chip.className = 'dropped-word';
+      chip.dataset.index = selectedWord;
+      chip.dataset.category = category;
+      chip.innerHTML = `
+        <span>${wordData.kk}</span>
+        <span class="remove" title="Қайтару / Вернуть">×</span>
+      `;
+
+      chip.querySelector('.remove').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!checked) returnWord(selectedWord !== null ? selectedWord : parseInt(chip.dataset.index), chip);
+        else returnWord(parseInt(chip.dataset.index), chip);
+      });
+
+      // Long press for translation
+      chip.addEventListener('mousedown', (e) => startLongPress(e, chip, wordData.ru));
+      chip.addEventListener('mouseup', cancelLongPress);
+      chip.addEventListener('mouseleave', cancelLongPress);
+      chip.addEventListener('touchstart', (e) => startLongPress(e, chip, wordData.ru), { passive: true });
+      chip.addEventListener('touchend', cancelLongPress);
+
+      zone.appendChild(chip);
+
+      selectedWord = null;
+      document.querySelectorAll('.table-box').forEach(t => t.classList.remove('active-target'));
+      updateCount();
+    }
+
+    function returnWord(index, chip) {
+      const wordEl = document.querySelector(`.word[data-index="${index}"]`);
+      if (wordEl) {
+        wordEl.classList.remove('moved');
+        wordEl.classList.remove('selected');
+      }
+      chip.remove();
+      updateCount();
+
+      // If we were in checked mode, hide results
+      if (checked) {
+        checked = false;
+        document.getElementById('results-panel').style.display = 'none';
+        document.getElementById('score').style.display = 'none';
+        document.querySelectorAll('.dropped-word').forEach(d => {
+          d.classList.remove('correct', 'incorrect');
+        });
+      }
+    }
+
+    function updateCount() {
+      const remaining = document.querySelectorAll('.word:not(.moved)').length;
+      document.getElementById('remaining-count').textContent = remaining;
+    }
+
+    // ===== LONG PRESS =====
+    function startLongPress(e, el, ruOverride = null) {
+      isLongPress = false;
+      const ru = ruOverride || el.dataset.ru;
+
+      longPressTimer = setTimeout(() => {
+        isLongPress = true;
+        showTooltip(e, ru);
+      }, LONG_PRESS_MS);
+    }
+
+    function cancelLongPress() {
+      if (longPressTimer) {
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      }
+      hideTooltip();
+    }
+
+    function showTooltip(e, text) {
+      const tooltip = document.getElementById('tooltip');
+      const tooltipText = document.getElementById('tooltip-text');
+      tooltipText.textContent = text;
+
+      let x, y;
+      if (e.touches && e.touches[0]) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
+      } else {
+        x = e.clientX;
+        y = e.clientY;
+      }
+
+      tooltip.style.left = Math.min(x - 60, window.innerWidth - 200) + 'px';
+      tooltip.style.top = (y - 70) + 'px';
+      tooltip.classList.add('visible');
+
+      setTimeout(hideTooltip, 2500);
+    }
+
+    function hideTooltip() {
+      document.getElementById('tooltip').classList.remove('visible');
+    }
+
+    // ===== ACTIONS =====
+    function resetGame() {
+      selectedWord = null;
+      checked = false;
+      document.getElementById('traditional-zone').innerHTML = '';
+      document.getElementById('non-traditional-zone').innerHTML = '';
+      document.querySelectorAll('.word').forEach(w => {
+        w.classList.remove('moved', 'selected');
+      });
+      document.querySelectorAll('.table-box').forEach(t => t.classList.remove('active-target'));
+      document.getElementById('score').style.display = 'none';
+      document.getElementById('results-panel').style.display = 'none';
+      updateCount();
+    }
+
+    function checkAnswers() {
+      const tradChips = document.querySelectorAll('#traditional-zone .dropped-word');
+      const nonTradChips = document.querySelectorAll('#non-traditional-zone .dropped-word');
+
+      if (tradChips.length + nonTradChips.length === 0) {
+        alert('Алдымен сөздерді орналастырыңыз! / Сначала разместите слова!');
+        return;
+      }
+
+      checked = true;
+      let correctCount = 0;
+      let total = 0;
+      const resultsList = document.getElementById('results-list');
+      resultsList.innerHTML = '';
+
+      function processChip(chip, placedCategory) {
+        const index = parseInt(chip.dataset.index);
+        const word = words[index];
+        total++;
+        const isCorrect = word.correct === placedCategory;
+
+        if (isCorrect) {
+          correctCount++;
+          chip.classList.add('correct');
+          chip.classList.remove('incorrect');
+        } else {
+          chip.classList.add('incorrect');
+          chip.classList.remove('correct');
+        }
+
+        const item = document.createElement('div');
+        item.className = 'result-item ' + (isCorrect ? 'correct' : 'incorrect');
+        item.innerHTML = `
+          <div class="word-title">${word.kk} <small>(${word.ru})</small></div>
+          <div class="status">
+            ${isCorrect 
+              ? '✅ Дұрыс / Правильно' 
+              : '❌ Қате / Неправильно'} 
+            — сіз қойған: <strong>${placedCategory === 'traditional' ? 'дәстүрлі' : 'дәстүрлі емес'}</strong>
+            ${!isCorrect ? `(дұрысы: <strong>${word.correct === 'traditional' ? 'дәстүрлі' : 'дәстүрлі емес'}</strong>)` : ''}
+          </div>
+          <div class="explanation">${word.why}</div>
+        `;
+        resultsList.appendChild(item);
+      }
+
+      tradChips.forEach(chip => processChip(chip, 'traditional'));
+      nonTradChips.forEach(chip => processChip(chip, 'non-traditional'));
+
+      // Score
+      const scoreEl = document.getElementById('score');
+      scoreEl.style.display = 'block';
+      scoreEl.innerHTML = `Дұрыс жауаптар / Правильных ответов: <strong>${correctCount}</strong> / ${total}`;
+
+      // Summary
+      const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+      const summary = document.getElementById('summary');
+      let message = '';
+      if (percent === 100) message = 'Керемет! Барлығы дұрыс! 🎉';
+      else if (percent >= 70) message = 'Жақсы нәтиже! Тағы бір рет байқап көріңіз.';
+      else if (percent >= 40) message = 'Орташа. Түсініктемелерді оқып, қайта көріңіз.';
+      else message = 'Көбі қате. Түсініктемелерді мұқият оқыңыз.';
+
+      summary.innerHTML = `${percent}% — ${message}`;
+
+      document.getElementById('results-panel').style.display = 'block';
+      document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>

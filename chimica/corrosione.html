@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>§ 14 – Коррозия металлов | Химия 8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface2: #334155;
+            --primary: #38bdf8;
+            --primary-dark: #0ea5e9;
+            --accent: #34d399;
+            --accent2: #fbbf24;
+            --danger: #f87171;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #475569;
+            --radius: 16px;
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0c4a6e 0%, #164e63 40%, #0f766e 100%);
+            padding: 3rem 1.5rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(56,189,248,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(52,211,153,0.12) 0%, transparent 40%);
+        }
+        .hero-content { position: relative; max-width: 900px; margin: 0 auto; }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            padding: 0.35rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            position: relative;
+        }
+        .nav-tab {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+        .nav-tab:hover, .nav-tab.active {
+            background: white;
+            color: #0c4a6e;
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 900px;
+            margin: -2rem auto 4rem;
+            padding: 0 1.25rem;
+            position: relative;
+        }
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .card h3 {
+            font-size: 1.15rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--primary);
+        }
+        .icon {
+            width: 32px; height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .definition {
+            background: linear-gradient(135deg, rgba(56,189,248,0.12), rgba(52,211,153,0.08));
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.25rem 0;
+            font-size: 1.1rem;
+        }
+        .definition strong { color: var(--primary); }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+        .type-card {
+            background: var(--surface2);
+            border-radius: 14px;
+            padding: 1.4rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .type-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+        .type-card.chemical { border-top: 3px solid var(--accent2); }
+        .type-card.electro { border-top: 3px solid var(--accent); }
+        .type-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .methods { display: grid; gap: 1rem; margin-top: 1.25rem; }
+        .method {
+            display: flex;
+            gap: 1rem;
+            background: var(--surface2);
+            padding: 1.1rem 1.25rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .method:hover {
+            border-color: var(--primary);
+            background: rgba(56,189,248,0.08);
+        }
+        .method-num {
+            background: var(--primary);
+            color: #0f172a;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .accordion { margin: 1.25rem 0; }
+        .acc-item {
+            background: var(--surface2);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .acc-header {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .acc-header:hover { background: rgba(255,255,255,0.03); }
+        .acc-header::after {
+            content: '+';
+            font-size: 1.4rem;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        .acc-item.open .acc-header::after { transform: rotate(45deg); }
+        .acc-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .acc-item.open .acc-body { max-height: 400px; }
+        .acc-content {
+            padding: 0 1.25rem 1.25rem;
+            color: var(--text-muted);
+        }
+        .formula {
+            background: #0c1222;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.05rem;
+            text-align: center;
+            margin: 1rem 0;
+            overflow-x: auto;
+            color: var(--accent);
+        }
+        .exercise-box {
+            background: linear-gradient(135deg, #1e3a5f, #0f2942);
+            border: 1px solid #3b82f6;
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        .exercise-box::before {
+            content: 'УПРАЖНЕНИЕ 11';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #3b82f6;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            letter-spacing: 0.05em;
+        }
+        .hint-btn, .solution-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.55rem 1.2rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-right: 0.6rem;
+            margin-top: 0.75rem;
+            transition: all 0.2s;
+        }
+        .hint-btn:hover, .solution-btn:hover {
+            background: var(--primary);
+            color: #0f172a;
+        }
+        .solution-btn {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .solution-btn:hover {
+            background: var(--accent);
+            color: #0f172a;
+        }
+        .hint-box, .solution-box {
+            display: none;
+            margin-top: 1.25rem;
+            padding: 1.25rem;
+            border-radius: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+        .hint-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+        }
+        .solution-box {
+            background: rgba(52,211,153,0.1);
+            border: 1px solid rgba(52,211,153,0.3);
+        }
+        .hint-box.visible, .solution-box.visible { display: block; }
+        .quiz-question {
+            background: var(--surface2);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border);
+        }
+        .quiz-question h4 { margin-bottom: 1rem; font-size: 1.1rem; }
+        .options { display: grid; gap: 0.6rem; }
+        .option {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.85rem 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .option:hover {
+            border-color: var(--primary);
+            background: rgba(56,189,248,0.08);
+        }
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(56,189,248,0.15);
+        }
+        .option.correct {
+            border-color: var(--accent);
+            background: rgba(52,211,153,0.15);
+        }
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(248,113,113,0.12);
+        }
+        .option input { display: none; }
+        .option-letter {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: var(--surface2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .quiz-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #0f172a;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: var(--border); }
+        .score-box {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: var(--radius);
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .score-box.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+        .score-label {
+            color: var(--text-muted);
+            margin: 0.5rem 0 1.5rem;
+        }
+        .progress-bar {
+            height: 6px;
+            background: var(--surface2);
+            border-radius: 999px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 999px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(56,189,248,0.15);
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 0.4rem;
+        }
+        ul.clean { list-style: none; margin: 0.75rem 0; }
+        ul.clean li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        ul.clean li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .highlight { color: var(--accent); font-weight: 500; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">Химия • 8 класс • § 14</div>
+            <h1>Коррозия металлов</h1>
+            <p>Узнайте, что такое коррозия, как она происходит и как защитить металлы. Теория + упражнение 11 + интерактивный тест.</p>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-section="teoria">📘 Теория</button>
+                <button class="nav-tab" data-section="protezione">🛡️ Защита</button>
+                <button class="nav-tab" data-section="esercizio">🗽 Упражнение 11</button>
+                <button class="nav-tab" data-section="quiz">🧠 Тест</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="teoria" class="section active">
+            <div class="card">
+                <h2><span class="icon" style="background:#0ea5e9">🔬</span> Что такое коррозия?</h2>
+                <div class="definition">
+                    <strong>Коррозия</strong> — это <strong>разрушение металлов и их сплавов</strong> под воздействием окружающей среды.
+                </div>
+                <p>С течением времени почти все металлы и сплавы подвергаются воздействию окружающей среды. По отношению к <span class="highlight">железу</span> и сплавам на его основе этот процесс называют <strong>ржавлением</strong>.</p>
+                <h3>Два основных вида коррозии</h3>
+                <div class="grid-2">
+                    <div class="type-card chemical">
+                        <h4>🔥 Химическая коррозия</h4>
+                        <p>Происходит под действием <strong>кислорода или других газов</strong> в отсутствие влаги. Поэтому её иногда называют <em>газовой коррозией</em>.</p>
+                        <ul class="clean">
+                            <li>Термическая обработка металлов</li>
+                            <li>Арматура печей</li>
+                            <li>Детали двигателей внутреннего сгорания</li>
+                            <li>Высокие температуры</li>
+                        </ul>
+                        <p style="margin-top:0.75rem;font-size:0.95rem;color:var(--text-muted)">На поверхности образуются плёнки оксидов или других соединений.</p>
+                    </div>
+                    <div class="type-card electro">
+                        <h4>⚡ Электрохимическая коррозия</h4>
+                        <p>Происходит в <strong>растворах кислот, щелочей и солей</strong> (во влажной среде).</p>
+                        <ul class="clean">
+                            <li>Зависит от природы примесей</li>
+                            <li>Зависит от однородности поверхности</li>
+                            <li>Усиливается при контакте с менее активным металлом</li>
+                            <li>Ослабляется при контакте с более активным металлом</li>
+                        </ul>
+                        <p style="margin-top:0.75rem;font-size:0.95rem;color:var(--text-muted)">Пример: железо сильнее ржавеет в контакте с медью.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon" style="background:#34d399">🛡️</span> Почему некоторые металлы почти не корродируют?</h2>
+                <p>Во влажном воздухе поверхность металла покрыта тонкой плёнкой воды. В ней растворяются кислород и другие газы, которые реагируют с металлом, образуя <strong>оксиды</strong>.</p>
+                <p style="margin-top:1rem">Некоторые металлы образуют <span class="highlight">прочные защитные оксидные плёнки</span>:</p>
+                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin:1rem 0">
+                    <span class="tag">Алюминий (Al)</span>
+                    <span class="tag">Хром (Cr)</span>
+                    <span class="tag">Никель (Ni)</span>
+                    <span class="tag">Цинк (Zn)</span>
+                </div>
+                <p>Эти плёнки не дают кислороду и влаге достичь металла, защищая его от коррозии.</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon" style="background:#fbbf24">⚡</span> Факторы, влияющие на скорость коррозии</h2>
+                <div class="accordion">
+                    <div class="acc-item">
+                        <div class="acc-header">Контакт с другими металлами</div>
+                        <div class="acc-body">
+                            <div class="acc-content">
+                                Коррозия <strong>усиливается</strong>, когда металл находится в контакте с <em>менее активным</em> металлом (правее в ряду активности).<br><br>
+                                Коррозия <strong>ослабляется</strong>, когда металл находится в контакте с <em>более активным</em> металлом (левее в ряду активности).<br><br>
+                                <strong>Пример:</strong> Железо + Медь → ржавеет быстрее<br>
+                                Железо + Цинк → ржавеет медленнее (цинк «жертвует» собой).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc-item">
+                        <div class="acc-header">Неоднородность и шероховатость поверхности</div>
+                        <div class="acc-body">
+                            <div class="acc-content">
+                                Неровности, примеси и повреждённые участки на поверхности металла создают локальные «гальванические элементы», которые ускоряют электрохимическую коррозию.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc-item">
+                        <div class="acc-header">Агрессивная среда</div>
+                        <div class="acc-body">
+                            <div class="acc-content">
+                                Кислоты, соли (особенно хлориды), высокая влажность и загрязнители атмосферы значительно ускоряют процесс коррозии.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="protezione" class="section">
+            <div class="card">
+                <h2><span class="icon" style="background:#f87171">💰</span> Почему важно защищать металлы?</h2>
+                <div class="definition">
+                    Каждый год из-за коррозии теряется около <strong>20%</strong> произведённого металла. На ремонт и замену деталей расходуются огромные средства.
+                </div>
+                <p>Борьба с коррозией основана на двух главных стратегиях:</p>
+                <ul class="clean">
+                    <li>Защитить поверхность металла от контакта с агрессивной атмосферой</li>
+                    <li>Создать на поверхности прочную защитную плёнку</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon" style="background:#38bdf8">🛠️</span> Основные методы защиты</h2>
+                <div class="methods">
+                    <div class="method">
+                        <div class="method-num">1</div>
+                        <div>
+                            <strong>Поверхностное покрытие металлов</strong>
+                            <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem">
+                                Краски, эмали, смазки, хромирование, никелирование, лужение (покрытие оловом), цинкование.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="method">
+                        <div class="method-num">2</div>
+                        <div>
+                            <strong>Создание сплавов, стойких к коррозии</strong>
+                            <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem">
+                                Нержавеющие стали (с хромом и никелем), алюминиевые сплавы, специальные сплавы.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="method">
+                        <div class="method-num">3</div>
+                        <div>
+                            <strong>Изменение окружающей среды</strong>
+                            <p style="color:var(--text-muted);font-size:0.95rem;margin-top:0.3rem">
+                                Использование <strong>ингибиторов</strong> (веществ, замедляющих коррозию) и контроль влажности.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon" style="background:#a78bfa">🎨</span> Виды покрытий</h2>
+                <div class="grid-2">
+                    <div class="type-card">
+                        <h4>🔩 Металлические покрытия</h4>
+                        <ul class="clean">
+                            <li>Хромирование</li>
+                            <li>Никелирование</li>
+                            <li>Лужение (Sn)</li>
+                            <li>Цинкование (Zn)</li>
+                            <li>Меднение</li>
+                        </ul>
+                    </div>
+                    <div class="type-card">
+                        <h4>🖌️ Неметаллические покрытия</h4>
+                        <ul class="clean">
+                            <li>Краски и эмали</li>
+                            <li>Лаки</li>
+                            <li>Смазки и масла</li>
+                            <li>Полимерные материалы</li>
+                            <li>Керамика</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="esercizio" class="section">
+            <div class="card">
+                <h2><span class="icon" style="background:#3b82f6">🗽</span> Упражнение 11 – Статуя Свободы</h2>
+                <div class="exercise-box">
+                    <p><strong>Текст задачи:</strong></p>
+                    <p style="margin:1rem 0">
+                        Строительство статуи Свободы в США велось в 1876—1886 гг. 
+                        Внутренняя часть изготовлена из <strong>железа</strong>, внешняя покрыта <strong>медью</strong>. 
+                        По прошествии времени статуя поменяла цвет на <strong>светло-зелёный</strong>. 
+                        Но это последствия не кислотных дождей, а <strong>окислительной реакции</strong>.
+                    </p>
+                    <p style="font-weight:600;color:var(--primary)">
+                        Запишите уравнение возможной реакции, которой можно объяснить изменение цвета.
+                    </p>
+                    <button class="hint-btn" onclick="toggleHint()">💡 Показать подсказку</button>
+                    <button class="solution-btn" onclick="toggleSolution()">✅ Показать решение</button>
+
+                    <div class="hint-box" id="hintBox">
+                        <strong>💡 Подсказки (с учётом валентности):</strong>
+                        <ul class="clean" style="margin-top:0.75rem">
+                            <li>Медь может проявлять валентность <strong>+1</strong> и <strong>+2</strong>.</li>
+                            <li>При валентности +1 образуется оксид меди(I): <strong>Cu₂O</strong> (красный цвет).</li>
+                            <li>При валентности +2 образуется оксид меди(II): <strong>CuO</strong> (чёрный цвет).</li>
+                            <li>Зелёный цвет статуи не соответствует ни красному, ни чёрному оксиду. Значит, образуется другое соединение меди.</li>
+                            <li>Медь реагирует не только с кислородом, но и с водой и углекислым газом воздуха.</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-box" id="solutionBox">
+                        <strong>✅ Решение:</strong>
+                        <p style="margin:0.75rem 0"><strong>1. Основные возможные реакции с учётом валентности:</strong></p>
+                        <p style="margin:0.5rem 0">Оксид меди(I) — валентность +1:</p>
+                        <div class="formula">4Cu + O₂ → 2Cu₂O</div>
+                        <p style="margin:0.5rem 0">Оксид меди(II) — валентность +2:</p>
+                        <div class="formula">2Cu + O₂ → 2CuO</div>
+                        <p style="margin:1.25rem 0 0.5rem"><strong>2. Дополнительно (более точное объяснение зелёного цвета):</strong></p>
+                        <p style="margin:0.5rem 0">
+                            Светло-зелёный цвет статуи Свободы объясняется образованием <strong>основного карбоната меди</strong> (малахита). 
+                            Медь реагирует с кислородом, водой и углекислым газом:
+                        </p>
+                        <div class="formula">2Cu + O₂ + H₂O + CO₂ → Cu₂(OH)₂CO₃</div>
+                        <p style="margin-top:0.75rem;color:var(--text-muted);font-size:0.95rem">
+                            (можно записать также как CuCO₃·Cu(OH)₂)
+                        </p>
+                        <p style="margin-top:1.25rem"><strong>Вывод:</strong></p>
+                        <p style="color:var(--text-muted)">
+                            В школьной программе чаще всего достаточно указать образование оксида меди с учётом валентности. 
+                            Зелёный цвет объясняется именно основным карбонатом меди (малахитом), а не простым оксидом.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Почему это не кислотные дожди?</h2>
+                <p>Кислотные дожди содержат в основном серную и азотную кислоты. Хотя они могут ускорять коррозию, характерный светло-зелёный цвет статуи Свободы типичен именно для образования <strong>основных соединений меди</strong> во влажном воздухе в присутствии кислорода и CO₂, а не сильных кислот.</p>
+            </div>
+        </section>
+
+        <section id="quiz" class="section">
+            <div class="card">
+                <h2><span class="icon" style="background:#a78bfa">🧠</span> Итоговый тест – Проверьте свои знания</h2>
+                <p style="color:var(--text-muted);margin-bottom:1rem">Ответьте на 6 вопросов. В конце вы увидите свой результат!</p>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div id="quizContainer">
+                    <div class="quiz-question" data-correct="b">
+                        <h4>1. Что такое коррозия?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q1" value="a"><span class="option-letter">А</span> Плавление металлов при высокой температуре</label>
+                            <label class="option"><input type="radio" name="q1" value="b"><span class="option-letter">Б</span> Разрушение металлов и сплавов под воздействием окружающей среды</label>
+                            <label class="option"><input type="radio" name="q1" value="c"><span class="option-letter">В</span> Образование сплавов между разными металлами</label>
+                            <label class="option"><input type="radio" name="q1" value="d"><span class="option-letter">Г</span> Процесс очистки металлов</label>
+                        </div>
+                    </div>
+                    <div class="quiz-question" data-correct="a">
+                        <h4>2. Как называется коррозия железа?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q2" value="a"><span class="option-letter">А</span> Ржавление</label>
+                            <label class="option"><input type="radio" name="q2" value="b"><span class="option-letter">Б</span> Простое окисление</label>
+                            <label class="option"><input type="radio" name="q2" value="c"><span class="option-letter">В</span> Пассивация</label>
+                            <label class="option"><input type="radio" name="q2" value="d"><span class="option-letter">Г</span> Гальванизация</label>
+                        </div>
+                    </div>
+                    <div class="quiz-question" data-correct="c">
+                        <h4>3. Какой вид коррозии происходит в отсутствие влаги?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q3" value="a"><span class="option-letter">А</span> Электрохимическая коррозия</label>
+                            <label class="option"><input type="radio" name="q3" value="b"><span class="option-letter">Б</span> Бактериальная коррозия</label>
+                            <label class="option"><input type="radio" name="q3" value="c"><span class="option-letter">В</span> Химическая (газовая) коррозия</label>
+                            <label class="option"><input type="radio" name="q3" value="d"><span class="option-letter">Г</span> Морская коррозия</label>
+                        </div>
+                    </div>
+                    <div class="quiz-question" data-correct="b">
+                        <h4>4. Железо быстрее ржавеет в контакте с каким металлом?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q4" value="a"><span class="option-letter">А</span> Цинк</label>
+                            <label class="option"><input type="radio" name="q4" value="b"><span class="option-letter">Б</span> Медь</label>
+                            <label class="option"><input type="radio" name="q4" value="c"><span class="option-letter">В</span> Магний</label>
+                            <label class="option"><input type="radio" name="q4" value="d"><span class="option-letter">Г</span> Алюминий</label>
+                        </div>
+                    </div>
+                    <div class="quiz-question" data-correct="d">
+                        <h4>5. Какое вещество объясняет зелёный цвет статуи Свободы?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q5" value="a"><span class="option-letter">А</span> Оксид меди(II) – CuO</label>
+                            <label class="option"><input type="radio" name="q5" value="b"><span class="option-letter">Б</span> Оксид меди(I) – Cu₂O</label>
+                            <label class="option"><input type="radio" name="q5" value="c"><span class="option-letter">В</span> Сульфат меди – CuSO₄</label>
+                            <label class="option"><input type="radio" name="q5" value="d"><span class="option-letter">Г</span> Основной карбонат меди – Cu₂(OH)₂CO₃</label>
+                        </div>
+                    </div>
+                    <div class="quiz-question" data-correct="a">
+                        <h4>6. Что из перечисленного НЕ является методом защиты от коррозии?</h4>
+                        <div class="options">
+                            <label class="option"><input type="radio" name="q6" value="a"><span class="option-letter">А</span> Повышение температуры эксплуатации</label>
+                            <label class="option"><input type="radio" name="q6" value="b"><span class="option-letter">Б</span> Нанесение красок или эмалей</label>
+                            <label class="option"><input type="radio" name="q6" value="c"><span class="option-letter">В</span> Использование ингибиторов коррозии</label>
+                            <label class="option"><input type="radio" name="q6" value="d"><span class="option-letter">Г</span> Создание стойких сплавов (например, нержавеющей стали)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="quiz-actions">
+                    <button class="btn btn-primary" onclick="checkQuiz()">Проверить ответы</button>
+                    <button class="btn btn-secondary" onclick="resetQuiz()">Начать заново</button>
+                </div>
+                <div class="score-box" id="scoreBox">
+                    <div class="score-value" id="scoreValue">0/6</div>
+                    <div class="score-label" id="scoreLabel">правильных ответов</div>
+                    <p id="scoreMessage"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Учебный материал по «Химия 8» • Создано для интерактивного изучения коррозии металлов
+    </footer>
+
+    <script>
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.section).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+        document.querySelectorAll('.acc-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+        function toggleHint() {
+            document.getElementById('hintBox').classList.toggle('visible');
+        }
+        function toggleSolution() {
+            document.getElementById('solutionBox').classList.toggle('visible');
+        }
+        const questions = document.querySelectorAll('.quiz-question');
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const name = opt.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+                    inp.closest('.option').classList.remove('selected');
+                });
+                opt.classList.add('selected');
+                opt.querySelector('input').checked = true;
+                updateProgress();
+            });
+        });
+        function updateProgress() {
+            const answered = document.querySelectorAll('.option.selected').length;
+            document.getElementById('progressFill').style.width = (answered / questions.length * 100) + '%';
+        }
+        function checkQuiz() {
+            let score = 0;
+            questions.forEach(q => {
+                const correct = q.dataset.correct;
+                const selected = q.querySelector('input:checked');
+                q.querySelectorAll('.option').forEach(o => o.classList.remove('correct', 'wrong'));
+                if (selected) {
+                    const selectedOpt = selected.closest('.option');
+                    if (selected.value === correct) {
+                        selectedOpt.classList.add('correct');
+                        score++;
+                    } else {
+                        selectedOpt.classList.add('wrong');
+                        q.querySelector(`input[value="${correct}"]`).closest('.option').classList.add('correct');
+                    }
+                } else {
+                    q.querySelector(`input[value="${correct}"]`).closest('.option').classList.add('correct');
+                }
+            });
+            const scoreBox = document.getElementById('scoreBox');
+            document.getElementById('scoreValue').textContent = score + '/6';
+            scoreBox.classList.add('visible');
+            const msg = document.getElementById('scoreMessage');
+            if (score === 6) msg.innerHTML = '🏆 <strong>Отлично!</strong> Вы полностью освоили тему коррозии металлов!';
+            else if (score >= 4) msg.innerHTML = '👏 <strong>Хорошая работа!</strong> Вы хорошо знаете большую часть материала. Посмотрите ошибки.';
+            else if (score >= 2) msg.innerHTML = '📚 <strong>Неплохое начало!</strong> Рекомендуем ещё раз прочитать разделы «Теория» и «Защита».';
+            else msg.innerHTML = '🔄 <strong>Продолжайте изучать!</strong> Внимательно перечитайте параграф и попробуйте тест снова.';
+            scoreBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        function resetQuiz() {
+            document.querySelectorAll('.option').forEach(o => o.classList.remove('selected', 'correct', 'wrong'));
+            document.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+            document.getElementById('scoreBox').classList.remove('visible');
+            document.getElementById('progressFill').style.width = '0%';
+        }
+    </script>
+</body>
+</html>

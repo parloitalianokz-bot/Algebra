@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Зәки Ахметов об Абае — Интерактивное изучение (синтез на казахском)</title>
+  <style>
+    :root {
+      --ink: #2c1810;
+      --paper: #faf6ef;
+      --gold: #c9a227;
+      --deep: #5c3a1e;
+      --accent: #8b4513;
+      --soft: #e8dcc8;
+      --green: #3d6b4f;
+      --light: #fffdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: linear-gradient(165deg, #f5efe0 0%, #e9dfc8 50%, #ddd0b5 100%);
+      color: var(--ink);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #3d2914, #5c3a1e 60%, #7a4f2a);
+      color: #faf6ef;
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.28);
+      position: relative;
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    header h1 { font-size: 1.45rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.35); }
+    header .sub { font-size: 0.95rem; opacity: 0.9; margin-top: 0.35rem; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.85rem 0.6rem;
+      background: rgba(250,246,239,0.92);
+      border-bottom: 2px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(5px);
+    }
+    nav button {
+      background: var(--light);
+      border: 1.5px solid var(--accent);
+      color: var(--deep);
+      padding: 0.4rem 0.75rem;
+      border-radius: 18px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    nav button:hover, nav button.active {
+      background: var(--accent);
+      color: white;
+    }
+    main { max-width: 800px; margin: 0 auto; padding: 1.3rem 0.9rem 2.5rem; }
+    section {
+      display: none;
+      background: var(--paper);
+      border-radius: 14px;
+      padding: 1.4rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 5px 20px rgba(44,24,16,0.1);
+      border: 1px solid rgba(139,69,19,0.2);
+      animation: fade 0.3s ease;
+    }
+    section.active { display: block; }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      color: var(--deep);
+      font-size: 1.25rem;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid var(--gold);
+    }
+    .text-block {
+      background: linear-gradient(to bottom, #fffdf8, #f5efe0);
+      border-left: 4px solid var(--accent);
+      padding: 1.1rem 1.2rem;
+      border-radius: 0 10px 10px 0;
+      margin: 0.8rem 0;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .phrase {
+      margin-bottom: 0.7rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed #e0d4c0;
+    }
+    .phrase:last-child { border-bottom: none; }
+    .kk { font-weight: 600; color: var(--ink); display: block; }
+    .ru {
+      color: #8b4513;
+      font-style: italic;
+      font-size: 0.95rem;
+      display: none;
+      margin-top: 0.2rem;
+    }
+    .ru.show { display: block; }
+    .btn {
+      background: linear-gradient(135deg, var(--accent), var(--deep));
+      color: white;
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 22px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: inherit;
+      box-shadow: 0 3px 8px rgba(92,58,30,0.25);
+      transition: all 0.2s;
+      margin: 0.3rem;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(92,58,30,0.35); }
+    .btn.sec { background: linear-gradient(135deg, var(--green), #2d5340); }
+    .btn.out {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--deep);
+      box-shadow: none;
+    }
+    .btn.out:hover { background: var(--accent); color: white; }
+    .summary-box {
+      background: #f0e8d4;
+      border-radius: 10px;
+      padding: 1.1rem;
+      margin: 0.8rem 0;
+      border: 1px dashed var(--accent);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+    .tip {
+      background: #fff8e7;
+      border-left: 3px solid var(--gold);
+      padding: 0.7rem 0.9rem;
+      margin: 0.7rem 0;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+    }
+    .exercise { background: white; border-radius: 10px; padding: 1.1rem; margin: 0.8rem 0; border: 1px solid #e5d9c4; }
+    .exercise h3 { color: var(--accent); margin-bottom: 0.7rem; font-size: 1.05rem; }
+    input.fill {
+      border: none;
+      border-bottom: 2px solid var(--accent);
+      background: transparent;
+      font-family: inherit;
+      font-size: 1.05rem;
+      min-width: 100px;
+      width: auto;
+      text-align: center;
+      color: var(--deep);
+      padding: 0.1rem 0.3rem;
+    }
+    input.fill:focus { outline: none; border-color: var(--gold); }
+    .option {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.6rem 0.9rem;
+      margin: 0.35rem 0;
+      border: 2px solid #e0d4c0;
+      border-radius: 8px;
+      background: #faf6ef;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .option:hover { border-color: var(--accent); }
+    .option.correct { background: #c8e6c9; border-color: var(--green); }
+    .option.wrong { background: #ffcdd2; border-color: #c62828; }
+    .feedback {
+      margin-top: 0.7rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: none;
+    }
+    .feedback.ok { background: #c8e6c9; color: #1b5e20; display: block; }
+    .feedback.bad { background: #ffcdd2; color: #b71c1c; display: block; }
+    .progress-bar { height: 8px; background: #e0d4c0; border-radius: 4px; margin: 0.8rem 0; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--gold)); width: 0%; transition: width 0.35s; }
+    .score { text-align: center; font-size: 1.05rem; margin: 0.6rem 0; color: var(--deep); }
+    .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    @media (max-width: 520px) { .match-grid { grid-template-columns: 1fr; } }
+    .match-btn {
+      padding: 0.55rem;
+      border: 2px solid #d4c8b0;
+      border-radius: 8px;
+      background: #faf6ef;
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .match-btn:hover { border-color: var(--accent); }
+    .match-btn.selected { background: var(--gold); border-color: var(--deep); font-weight: 600; }
+    .match-btn.correct { background: #c8e6c9; border-color: var(--green); }
+    .match-btn.wrong { background: #ffcdd2; border-color: #c62828; }
+    .hidden-w {
+      background: var(--deep);
+      color: var(--deep);
+      border-radius: 3px;
+      padding: 0 0.25rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+    .hidden-w.revealed { background: transparent; color: var(--accent); }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+    }
+    @media (max-width: 500px) { .game-board { grid-template-columns: repeat(3, 1fr); } }
+    .card {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--accent), var(--deep));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 0.3rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .card:hover { transform: scale(1.03); }
+    .card.flipped { background: var(--light); color: var(--deep); border: 2px solid var(--gold); }
+    .card.matched { background: #c8e6c9; color: #1b5e20; border: 2px solid var(--green); cursor: default; opacity: 0.9; }
+    footer { text-align: center; padding: 1.2rem; color: var(--deep); font-size: 0.85rem; opacity: 0.75; }
+    .goal {
+      background: #e8f5e9;
+      border: 2px solid var(--green);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      margin: 0.8rem 0;
+      font-size: 0.98rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Абайға дейінгі қазақ поэзиясы…</h1>
+    <div class="sub">Зәки Ахметов • Синтезді қазақша айту үшін • для Камиллы</div>
+  </header>
+
+  <nav>
+    <button data-s="orig" class="active">📜 Оригинал</button>
+    <button data-s="trans">🇷🇺 Перевод</button>
+    <button data-s="sum">💡 Синтез (қаз.)</button>
+    <button data-s="sumru">🇷🇺 Синтез (рус.)</button>
+    <button data-s="ex1">1. Сөздер</button>
+    <button data-s="ex2">2. Толтыр</button>
+    <button data-s="ex3">3. Таңда</button>
+    <button data-s="ex4">4. Жады</button>
+    <button data-s="ex5">5. Дұрыс па?</button>
+    <button data-s="game">🎮 Ойын</button>
+  </nav>
+
+  <main>
+    <!-- 1. Original -->
+    <section id="orig" class="active">
+      <h2>📜 Толық мәтін (қазақша)</h2>
+      <div class="tip">Алдымен толық мәтінді оқы. Кейін синтезді жатта.</div>
+      <div class="text-block" id="origText">
+        <p>Абайға дейінгі қазақ поэзиясы ауыз әдебиеті дәстүрлері негізінде, жеке ақындар шығармашылығы арқылы дамыды. Абаймен бірге қазақ өміріне, өнеріне, мәдениетіне жаңа бағыт келді. Абай өзіне дейінгі ақын-жыраулардың шығармаларын жетік меңгерді. Сонымен бірге ол орыс әдебиетімен танысты. Әсіресе Пушкин, Лермонтов поэзиясын терең білді. Абай орыс әдебиеті мен қазақ әдебиетінің арасына дәнекер болды.</p>
+        <p>Абай Семейдегі медреседе оқыған кезінде араб, парсы, шағатай тілдерін меңгеріп, сауатын ашты. Өзінің ерекше қабілеті мен зейіні, зор ықыласпен үйренуінің арқасында Абай орыс тілін де меңгеріп алды.</p>
+        <p>Дана Абай әдебиетті көркемдік жаңа биікке көтерді. Ол Пушкин, Лермонтов, Крыловтың шығармаларын қазақ тіліне аударды. «Татьянаның хаты», «Онегиннің хаты», «Татьянаның сөзі», «Ленскийдің сөзі» секілді өлеңдерін шығарды.</p>
+        <p style="text-align:right; margin-top:0.8rem; font-style:italic;">— Зәки Ахметов</p>
+      </div>
+      <div style="text-align:center">
+        <button class="btn sec" id="readOrig">🔊 Қазақша оқу</button>
+      </div>
+    </section>
+
+    <!-- 2. Phrase translation -->
+    <section id="trans">
+      <h2>🇷🇺 Фраза бойынша аударма</h2>
+      <div class="tip">Әр фразаның астында орысша аударманы көрсету үшін батырманы бас.</div>
+      <div class="text-block" id="phraseBlock">
+        <div class="phrase">
+          <span class="kk">Абайға дейінгі қазақ поэзиясы ауыз әдебиеті дәстүрлері негізінде, жеке ақындар шығармашылығы арқылы дамыды.</span>
+          <span class="ru">Казахская поэзия до Абая развивалась на основе традиций устного народного творчества, через творчество отдельных поэтов.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Абаймен бірге қазақ өміріне, өнеріне, мәдениетіне жаңа бағыт келді.</span>
+          <span class="ru">Вместе с Абаем в казахскую жизнь, искусство и культуру пришло новое направление.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Абай өзіне дейінгі ақын-жыраулардың шығармаларын жетік меңгерді.</span>
+          <span class="ru">Абай в совершенстве освоил произведения поэтов-жырау, живших до него.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Сонымен бірге ол орыс әдебиетімен танысты. Әсіресе Пушкин, Лермонтов поэзиясын терең білді.</span>
+          <span class="ru">Вместе с тем он познакомился с русской литературой. Особенно глубоко знал поэзию Пушкина и Лермонтова.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Абай орыс әдебиеті мен қазақ әдебиетінің арасына дәнекер болды.</span>
+          <span class="ru">Абай стал связующим звеном между русской и казахской литературой.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Абай Семейдегі медреседе оқыған кезінде араб, парсы, шағатай тілдерін меңгеріп, сауатын ашты.</span>
+          <span class="ru">Когда Абай учился в медресе в Семее, он овладел арабским, персидским и чагатайским языками и получил образование.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Өзінің ерекше қабілеті мен зейіні, зор ықыласпен үйренуінің арқасында Абай орыс тілін де меңгеріп алды.</span>
+          <span class="ru">Благодаря своим выдающимся способностям, внимательности и огромному желанию учиться Абай овладел и русским языком.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Дана Абай әдебиетті көркемдік жаңа биікке көтерді.</span>
+          <span class="ru">Мудрый Абай поднял литературу на новую художественную высоту.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">Ол Пушкин, Лермонтов, Крыловтың шығармаларын қазақ тіліне аударды.</span>
+          <span class="ru">Он перевёл на казахский язык произведения Пушкина, Лермонтова и Крылова.</span>
+        </div>
+        <div class="phrase">
+          <span class="kk">«Татьянаның хаты», «Онегиннің хаты», «Татьянаның сөзі», «Ленскийдің сөзі» секілді өлеңдерін шығарды.</span>
+          <span class="ru">Он создал такие стихи, как «Письмо Татьяны», «Письмо Онегина», «Слова Татьяны», «Слова Ленского».</span>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <button class="btn" id="toggleRu">Орысша аударманы көрсету</button>
+      </div>
+    </section>
+
+    <!-- 3. Summary in KAZAKH (main for retelling) -->
+    <section id="sum">
+      <h2>💡 Синтез (қазақша) — осыны айту керек</h2>
+      <div class="goal">
+        <strong>Мақсат:</strong> Камилла осы қысқа синтезді өз сөзімен <em>қазақша</em> айтып беруі керек. Төмендегі жаттығулар осыған көмектеседі.
+      </div>
+      <div class="summary-box" id="summaryKk">
+        <p><strong>Абайға дейін</strong> қазақ поэзиясы ауыз әдебиеті дәстүрлері мен жеке ақын-жыраулар шығармашылығы негізінде дамыды.</p>
+        <p><strong>Абаймен бірге</strong> қазақ мәдениетіне жаңа бағыт келді. Ол өзіне дейінгі ақындар мұрасын жетік білді және орыс әдебиетін, әсіресе Пушкин мен Лермонтовты терең меңгерді. Абай орыс және қазақ әдебиетінің арасында дәнекер болды.</p>
+        <p><strong>Білім:</strong> Семей медресесінде Абай араб, парсы, шағатай тілдерін меңгерді. Қабілеті мен ықыласы арқасында ол орыс тілін де үйренді.</p>
+        <p><strong>Үлес:</strong> Абай әдебиетті көркемдік жаңа биікке көтерді. Ол Пушкин, Лермонтов, Крылов шығармаларын қазақшаға аударды және «Татьянаның хаты», «Онегиннің хаты» сияқты өлеңдер шығарды.</p>
+      </div>
+      <div style="text-align:center; margin-top:0.8rem;">
+        <button class="btn sec" id="readSumKk">🔊 Синтезді қазақша оқу</button>
+      </div>
+    </section>
+
+    <!-- 4. Summary in Russian (reference) -->
+    <section id="sumru">
+      <h2>🇷🇺 Синтез (орысша) — анықтама үшін</h2>
+      <div class="tip">Егер қазақша түсінбеген жер болса, осы жерден қара.</div>
+      <div class="summary-box">
+        <p><strong>До Абая</strong> казахская поэзия развивалась в традициях устного народного творчества и творчества отдельных акынов-жырау.</p>
+        <p><strong>С Абаем</strong> в казахскую культуру пришло новое направление. Он в совершенстве знал наследие предшественников и глубоко изучил русскую литературу, особенно Пушкина и Лермонтова. Абай стал мостом между русской и казахской литературой.</p>
+        <p><strong>Образование:</strong> в медресе Семея Абай овладел арабским, персидским и чагатайским языками. Благодаря таланту и усердию он выучил и русский язык.</p>
+        <p><strong>Вклад:</strong> Абай поднял литературу на новую художественную высоту. Он перевёл Пушкина, Лермонтова и Крылова на казахский и создал переложения («Письмо Татьяны», «Письмо Онегина» и др.).</p>
+      </div>
+    </section>
+
+    <!-- EX1 Matching (bilingual help) -->
+    <section id="ex1">
+      <h2>1. Сөздерді сәйкестендір</h2>
+      <div class="tip">Қазақ сөзін таңда, сосын оның орысша аудармасын тап. Синтезді түсінуге көмектеседі.</div>
+      <div class="exercise">
+        <div class="match-grid" id="mLeft"></div>
+        <div class="score" id="mStatus">Сол жақтан сөз таңда</div>
+        <div class="match-grid" id="mRight"></div>
+        <div class="score">Дұрыс: <span id="mScore">0</span> / 8</div>
+        <div style="text-align:center"><button class="btn out" onclick="initMatch()">Қайта бастау</button></div>
+      </div>
+    </section>
+
+    <!-- EX2 Fill blanks IN KAZAKH -->
+    <section id="ex2">
+      <h2>2. Синтезді толтыр (қазақша)</h2>
+      <div class="tip">Бос орындарға дұрыс сөздерді жаз. Бұл — синтезді жаттаудың негізгі жаттығуы.</div>
+      <div class="exercise">
+        <p style="line-height:2.2; font-size:1.05rem;">
+          Абайға дейін қазақ поэзиясы <input class="fill" data-a="ауыз" id="b1"> әдебиеті дәстүрлері мен жеке ақын-жыраулар шығармашылығы негізінде дамыды.<br><br>
+          Абаймен бірге қазақ мәдениетіне <input class="fill" data-a="жаңа" id="b2"> бағыт келді.<br><br>
+          Абай орыс және қазақ әдебиетінің арасында <input class="fill" data-a="дәнекер" id="b3"> болды.<br><br>
+          Семей медресесінде Абай араб, <input class="fill" data-a="парсы" id="b4">, шағатай тілдерін меңгерді.<br><br>
+          Абай әдебиетті көркемдік жаңа <input class="fill" data-a="биікке" id="b5"> көтерді.
+        </p>
+        <div style="text-align:center; margin-top:0.8rem;">
+          <button class="btn" onclick="checkFill()">Тексеру</button>
+        </div>
+        <div class="feedback" id="fillFb"></div>
+      </div>
+    </section>
+
+    <!-- EX3 Multiple choice IN KAZAKH -->
+    <section id="ex3">
+      <h2>3. Дұрыс жауапты таңда (қазақша)</h2>
+      <div class="exercise">
+        <h3 id="qT"></h3>
+        <div id="qO"></div>
+        <div class="feedback" id="qF"></div>
+        <div class="progress-bar"><div class="progress-fill" id="qP"></div></div>
+        <div class="score">Сұрақ <span id="qN">1</span> / 5 • Дұрыс: <span id="qS">0</span></div>
+        <div style="text-align:center"><button class="btn" id="qNext" style="display:none" onclick="nextQ()">Келесі →</button></div>
+      </div>
+    </section>
+
+    <!-- EX4 Memory hide IN KAZAKH -->
+    <section id="ex4">
+      <h2>4. Жады (сөздерді жасыру)</h2>
+      <div class="tip">Алдымен оқы. Сосын сөздерді жасыр — қараңғы жерге басып, тексер.</div>
+      <div class="exercise">
+        <div style="text-align:center; margin-bottom:0.8rem;">
+          <button class="btn sec" onclick="memLevel(0)">Барлығын көрсет</button>
+          <button class="btn" onclick="memLevel(1)">Негізгі сөздерді жасыр</button>
+          <button class="btn out" onclick="memLevel(2)">Көбірек жасыр</button>
+        </div>
+        <div class="summary-box" id="memBox" style="line-height:1.95;"></div>
+      </div>
+    </section>
+
+    <!-- EX5 True/False IN KAZAKH -->
+    <section id="ex5">
+      <h2>5. Дұрыс па, бұрыс па?</h2>
+      <div class="exercise">
+        <h3 id="tfT"></h3>
+        <div style="display:flex; gap:0.8rem; justify-content:center; margin:1rem 0;">
+          <button class="btn" onclick="ansTF(true)">✓ Дұрыс</button>
+          <button class="btn out" onclick="ansTF(false)">✗ Бұрыс</button>
+        </div>
+        <div class="feedback" id="tfF"></div>
+        <div class="progress-bar"><div class="progress-fill" id="tfP"></div></div>
+        <div class="score">Мәлімдеме <span id="tfN">1</span> / 5 • Дұрыс: <span id="tfS">0</span></div>
+        <div style="text-align:center"><button class="btn" id="tfNext" style="display:none" onclick="nextTF()">Келесі →</button></div>
+      </div>
+    </section>
+
+    <!-- Game -->
+    <section id="game">
+      <h2>🎮 Ойын «Жұп тап»</h2>
+      <div class="tip">Қазақ сөзі мен оның орысша аудармасын тап.</div>
+      <div class="score">Жұп: <span id="gPairs">0</span>/6 • Жүріс: <span id="gMoves">0</span></div>
+      <div class="game-board" id="gBoard"></div>
+      <div style="text-align:center"><button class="btn" onclick="startGame()">Жаңа ойын</button></div>
+      <div class="feedback" id="gFb"></div>
+    </section>
+  </main>
+
+  <footer>
+    Зәки Ахметов • Абай туралы мәтін • Камилла үшін интерактивті көмекші
+  </footer>
+
+  <script>
+    // Nav
+    document.querySelectorAll('nav button').forEach(b => {
+      b.onclick = () => {
+        document.querySelectorAll('nav button').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        b.classList.add('active');
+        document.getElementById(b.dataset.s).classList.add('active');
+        if (b.dataset.s === 'ex1') initMatch();
+        if (b.dataset.s === 'ex3') startQ();
+        if (b.dataset.s === 'ex5') startTF();
+        if (b.dataset.s === 'game') startGame();
+        if (b.dataset.s === 'ex4') memLevel(0);
+      };
+    });
+
+    // Toggle RU
+    let ruOn = false;
+    document.getElementById('toggleRu').onclick = function() {
+      ruOn = !ruOn;
+      document.querySelectorAll('#phraseBlock .ru').forEach(e => e.classList.toggle('show', ruOn));
+      this.textContent = ruOn ? 'Орысша аударманы жасыру' : 'Орысша аударманы көрсету';
+    };
+
+    // TTS
+    function speak(text, lang) {
+      if (!('speechSynthesis' in window)) return alert('TTS қолдау көрсетілмейді');
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang || 'kk-KZ';
+      u.rate = 0.88;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }
+    document.getElementById('readOrig').onclick = () => {
+      speak(document.getElementById('origText').innerText, 'kk-KZ');
+    };
+    document.getElementById('readSumKk').onclick = () => {
+      speak(document.getElementById('summaryKk').innerText, 'kk-KZ');
+    };
+
+    // ===== Match =====
+    const pairs = [
+      {k:'ауыз әдебиеті', r:'устное народное творчество'},
+      {k:'дәнекер', r:'связующее звено / мост'},
+      {k:'медресе', r:'медресе (школа)'},
+      {k:'сауатын ашты', r:'получил образование'},
+      {k:'жетік меңгерді', r:'в совершенстве освоил'},
+      {k:'көркемдік биік', r:'художественная высота'},
+      {k:'ақын-жырау', r:'поэт-жырау'},
+      {k:'жаңа бағыт', r:'новое направление'}
+    ];
+    let selK = null, mSc = 0, used = new Set();
+
+    function initMatch() {
+      mSc = 0; used.clear(); selK = null;
+      document.getElementById('mScore').textContent = '0';
+      document.getElementById('mStatus').textContent = 'Сол жақтан сөз таңда';
+      const L = document.getElementById('mLeft'), R = document.getElementById('mRight');
+      L.innerHTML = ''; R.innerHTML = '';
+      const sh = [...pairs].sort(() => Math.random()-0.5);
+      pairs.forEach(p => {
+        const b = document.createElement('button');
+        b.className = 'match-btn'; b.textContent = p.k; b.dataset.k = p.k;
+        b.onclick = () => { if (used.has(p.k)) return; document.querySelectorAll('#mLeft .match-btn').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); selK = p.k; document.getElementById('mStatus').textContent = 'Енді оң жақтан аударманы таңда →'; };
+        L.appendChild(b);
+      });
+      sh.forEach(p => {
+        const b = document.createElement('button');
+        b.className = 'match-btn'; b.textContent = p.r; b.dataset.k = p.k;
+        b.onclick = () => {
+          if (!selK || used.has(selK)) return;
+          const lb = document.querySelector(`#mLeft .match-btn[data-k="${selK}"]`);
+          if (b.dataset.k === selK) {
+            lb.classList.add('correct'); b.classList.add('correct');
+            used.add(selK); mSc++; document.getElementById('mScore').textContent = mSc;
+            document.getElementById('mStatus').textContent = mSc===8 ? 'Керемет! Барлық жұп табылды! 🎉' : 'Дұрыс! ✓';
+          } else {
+            lb.classList.add('wrong'); b.classList.add('wrong');
+            document.getElementById('mStatus').textContent = 'Қате';
+            setTimeout(()=>{ lb.classList.remove('wrong','selected'); b.classList.remove('wrong'); }, 700);
+          }
+          selK = null;
+          document.querySelectorAll('#mLeft .match-btn').forEach(x=>x.classList.remove('selected'));
+        };
+        R.appendChild(b);
+      });
+    }
+
+    // ===== Fill IN KAZAKH =====
+    function checkFill() {
+      let ok=0, tot=0;
+      document.querySelectorAll('.fill').forEach(i => {
+        tot++;
+        const v = i.value.trim().toLowerCase();
+        if (v === i.dataset.a.toLowerCase()) { i.style.borderColor='#3d6b4f'; i.style.color='#1b5e20'; ok++; }
+        else { i.style.borderColor='#c62828'; i.style.color='#b71c1c'; }
+      });
+      const f = document.getElementById('fillFb');
+      if (ok===tot) { f.className='feedback ok'; f.textContent='Керемет! Барлық сөздер дұрыс! 🌟'; }
+      else { f.className='feedback bad'; f.textContent=`Дұрыс ${ok} / ${tot}. Жазылуын тексер.`; }
+    }
+
+    // ===== Quiz IN KAZAKH =====
+    const qs = [
+      {q:'Абайға дейін қазақ поэзиясы негізінен қалай дамыды?', o:['Тек жазба әдебиет арқылы','Ауыз әдебиеті дәстүрлері мен жеке ақындар арқылы','Тек орыс әдебиеті арқылы','Тек парсы әдебиеті арқылы'], a:1},
+      {q:'Абай орыс және қазақ әдебиетінің арасында кім болды?', o:['Сыншы','Дәнекер (көпір)','Тек аудармашы','Шәкірт'], a:1},
+      {q:'Семей медресесінде Абай қандай тілдерді меңгерді?', o:['Тек орыс тілін','Араб, парсы, шағатай тілдерін','Тек қазақ тілін','Француз және неміс тілдерін'], a:1},
+      {q:'Абай Пушкин, Лермонтов, Крылов шығармаларын не істеді?', o:['Тек оқыды','Қазақ тіліне аударды','Сынға алды','Елемеді'], a:1},
+      {q:'Абай әдебиетті қалай өзгертті?', o:['Ештеңе өзгертпеді','Көркемдік жаңа биікке көтерді','Тек балаларға арнады','Тек ауызша қалдырды'], a:1}
+    ];
+    let qi=0, qs_=0, ans=false;
+    function startQ(){ qi=0; qs_=0; ans=false; showQ(); }
+    function showQ(){
+      ans=false;
+      const q=qs[qi];
+      document.getElementById('qT').textContent=q.q;
+      document.getElementById('qN').textContent=qi+1;
+      document.getElementById('qS').textContent=qs_;
+      document.getElementById('qP').style.width=(qi/qs.length*100)+'%';
+      document.getElementById('qF').className='feedback';
+      document.getElementById('qNext').style.display='none';
+      const box=document.getElementById('qO'); box.innerHTML='';
+      q.o.forEach((t,i)=>{
+        const b=document.createElement('button'); b.className='option'; b.textContent=t;
+        b.onclick=()=>{ if(ans)return; ans=true;
+          document.querySelectorAll('#qO .option').forEach((x,j)=>{ if(j===q.a)x.classList.add('correct'); else if(j===i)x.classList.add('wrong'); });
+          const f=document.getElementById('qF');
+          if(i===q.a){ qs_++; f.className='feedback ok'; f.textContent='Дұрыс! ✓'; }
+          else { f.className='feedback bad'; f.textContent='Қате. Дұрыс жауап жасылмен белгіленген.'; }
+          document.getElementById('qS').textContent=qs_;
+          document.getElementById('qNext').style.display='inline-block';
+          if(qi===qs.length-1) document.getElementById('qNext').textContent='Аяқтау';
+        };
+        box.appendChild(b);
+      });
+    }
+    function nextQ(){
+      if(qi<qs.length-1){ qi++; showQ(); }
+      else {
+        document.getElementById('qT').textContent=`Дайын! Нәтиже: ${qs_} / ${qs.length}`;
+        document.getElementById('qO').innerHTML='';
+        document.getElementById('qF').className='feedback ok';
+        document.getElementById('qF').textContent=qs_>=4?'Керемет! Материалды жақсы меңгердің.':'Тағы бір рет өтуге болады.';
+        document.getElementById('qNext').style.display='none';
+        document.getElementById('qP').style.width='100%';
+      }
+    }
+
+    // ===== Memory IN KAZAKH =====
+    const memText = `Абайға дейін қазақ поэзиясы ауыз әдебиеті дәстүрлері мен жеке ақын-жыраулар шығармашылығы негізінде дамыды. Абаймен бірге қазақ мәдениетіне жаңа бағыт келді. Ол өзіне дейінгі ақындар мұрасын жетік білді және орыс әдебиетін, әсіресе Пушкин мен Лермонтовты терең меңгерді. Абай орыс және қазақ әдебиетінің арасында дәнекер болды. Семей медресесінде Абай араб, парсы, шағатай тілдерін меңгерді. Қабілеті мен ықыласы арқасында ол орыс тілін де үйренді. Абай әдебиетті көркемдік жаңа биікке көтерді. Ол Пушкин, Лермонтов, Крылов шығармаларын қазақшаға аударды және «Татьянаның хаты», «Онегиннің хаты» сияқты өлеңдер шығарды.`;
+    const keyWords = ['ауыз','дәстүрлері','ақын-жыраулар','жаңа','бағыт','жетік','мұрасын','терең','дәнекер','медресесінде','араб','парсы','шағатай','қабілеті','ықыласы','көркемдік','биікке','аударды'];
+    function memLevel(lv){
+      let html = memText;
+      if(lv>=1){
+        keyWords.forEach(w=>{
+          const re=new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+          html=html.replace(re,'<span class="hidden-w" onclick="this.classList.toggle(\'revealed\')">$1</span>');
+        });
+      }
+      if(lv>=2){
+        const more=['поэзиясы','әдебиеті','шығармашылығы','негізінде','дамыды','мәдениетіне','келді','дейінгі','білді','әдебиетін','әсіресе','меңгерді','арасында','болды','тілдерін','арқасында','үйренді','әдебиетті','шығармаларын','қазақшаға','өлеңдер','шығарды'];
+        more.forEach(w=>{
+          const re=new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+          html=html.replace(re,'<span class="hidden-w" onclick="this.classList.toggle(\'revealed\')">$1</span>');
+        });
+      }
+      document.getElementById('memBox').innerHTML=html;
+    }
+
+    // ===== TF IN KAZAKH =====
+    const tfs = [
+      {t:'Абайға дейін қазақ поэзиясы тек жазба түрде дамыды.', v:false},
+      {t:'Абай орыс және қазақ әдебиетінің арасында дәнекер болды.', v:true},
+      {t:'Семей медресесінде Абай тек орыс тілін үйренді.', v:false},
+      {t:'Абай Пушкин, Лермонтов, Крылов шығармаларын қазақ тіліне аударды.', v:true},
+      {t:'Абай әдебиетті көркемдік жаңа биікке көтерді.', v:true}
+    ];
+    let ti=0, ts=0, ta=false;
+    function startTF(){ ti=0; ts=0; ta=false; showTF(); }
+    function showTF(){
+      ta=false;
+      document.getElementById('tfT').textContent=tfs[ti].t;
+      document.getElementById('tfN').textContent=ti+1;
+      document.getElementById('tfS').textContent=ts;
+      document.getElementById('tfP').style.width=(ti/tfs.length*100)+'%';
+      document.getElementById('tfF').className='feedback';
+      document.getElementById('tfNext').style.display='none';
+    }
+    function ansTF(v){
+      if(ta)return; ta=true;
+      const ok=tfs[ti].v===v;
+      const f=document.getElementById('tfF');
+      if(ok){ ts++; f.className='feedback ok'; f.textContent='Дұрыс! ✓'; }
+      else { f.className='feedback bad'; f.textContent='Қате. Дұрыс жауап: '+(tfs[ti].v?'Дұрыс':'Бұрыс'); }
+      document.getElementById('tfS').textContent=ts;
+      document.getElementById('tfNext').style.display='inline-block';
+      if(ti===tfs.length-1) document.getElementById('tfNext').textContent='Аяқтау';
+    }
+    function nextTF(){
+      if(ti<tfs.length-1){ ti++; showTF(); }
+      else {
+        document.getElementById('tfT').textContent=`Дайын! ${ts} / ${tfs.length}`;
+        document.getElementById('tfF').className='feedback ok';
+        document.getElementById('tfF').textContent=ts>=4?'Керемет түсінік!':'Синтезді қайта оқып, тағы байқа.';
+        document.getElementById('tfNext').style.display='none';
+        document.getElementById('tfP').style.width='100%';
+      }
+    }
+
+    // ===== Game =====
+    const gPairs = [
+      {k:'ауыз әдебиеті', r:'устное творчество'},
+      {k:'дәнекер', r:'мост / звено'},
+      {k:'медресе', r:'медресе'},
+      {k:'жетік', r:'в совершенстве'},
+      {k:'бағыт', r:'направление'},
+      {k:'аударды', r:'перевёл'}
+    ];
+    let flip=[], mat=0, mov=0, lock=false;
+    function startGame(){
+      mat=0; mov=0; flip=[]; lock=false;
+      document.getElementById('gPairs').textContent='0';
+      document.getElementById('gMoves').textContent='0';
+      document.getElementById('gFb').className='feedback';
+      const b=document.getElementById('gBoard'); b.innerHTML='';
+      const cards=[];
+      gPairs.forEach(p=>{ cards.push({t:p.k,p:p.k}); cards.push({t:p.r,p:p.k}); });
+      cards.sort(()=>Math.random()-0.5);
+      cards.forEach((c,i)=>{
+        const d=document.createElement('div'); d.className='card'; d.textContent='?';
+        d.onclick=()=>{
+          if(lock||d.classList.contains('flipped')||d.classList.contains('matched'))return;
+          d.classList.add('flipped'); d.textContent=c.t; flip.push({d,p:c.p});
+          if(flip.length===2){
+            mov++; document.getElementById('gMoves').textContent=mov; lock=true;
+            if(flip[0].p===flip[1].p){
+              flip[0].d.classList.add('matched'); flip[1].d.classList.add('matched');
+              mat++; document.getElementById('gPairs').textContent=mat; flip=[]; lock=false;
+              if(mat===6){ const f=document.getElementById('gFb'); f.className='feedback ok'; f.textContent=`Барлық жұп ${mov} жүрісте табылды! 🎉`; }
+            } else {
+              setTimeout(()=>{ flip[0].d.classList.remove('flipped'); flip[0].d.textContent='?'; flip[1].d.classList.remove('flipped'); flip[1].d.textContent='?'; flip=[]; lock=false; },850);
+            }
+          }
+        };
+        b.appendChild(d);
+      });
+    }
+
+    // init
+    initMatch();
+    memLevel(0);
+  </script>
+</body>
+</html>

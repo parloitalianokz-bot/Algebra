@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Упражнение 93 — Развлечения и спорт</title>
+  <style>
+    :root {
+      --primary: #1565c0;
+      --success: #2e7d32;
+      --danger: #c62828;
+      --accent: #00897b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(160deg, #e0f2f1 0%, #e8f5e9 40%, #e3f2fd 100%);
+      color: #1a237e;
+      min-height: 100vh;
+      padding: 16px;
+      line-height: 1.55;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 22px;
+      padding: 22px 16px 18px;
+      background: linear-gradient(90deg, #0d47a1, #1b5e20);
+      color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(13,71,161,0.28);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: "⚽ 🏃 🏆 🏀 ⛷️ 🏊";
+      position: absolute;
+      top: 8px; left: 0; right: 0;
+      font-size: 1.25rem;
+      opacity: 0.22;
+      letter-spacing: 10px;
+    }
+    header h1 { font-size: 1.7rem; margin-bottom: 4px; position: relative; }
+    header p  { font-size: 0.98rem; opacity: 0.93; position: relative; }
+
+    .how-to {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+      border-left: 5px solid var(--accent);
+      font-size: 0.98rem;
+    }
+    .how-to h3 {
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .how-to ol { padding-left: 22px; }
+    .how-to li { margin-bottom: 5px; }
+    .how-to .key {
+      display: inline-block;
+      background: #e0f2f1;
+      border: 1px solid #80cbc4;
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .task {
+      background: #fffde7;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 1.02rem;
+      border: 1px solid #fff59d;
+    }
+
+    .sentence-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      border: 2px solid transparent;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .sentence-card.correct  { border-color: var(--success); background: #f1f8e9; }
+    .sentence-card.incorrect{ border-color: var(--danger);  background: #ffebee; }
+
+    .sentence-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #fff;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .sentence-body {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 3px 2px;
+      font-size: 1.1rem;
+      margin-top: 6px;
+      line-height: 1.75;
+    }
+
+    .word {
+      position: relative;
+      padding: 2px 1px;
+      border-radius: 4px;
+      cursor: default;
+      transition: background 0.15s;
+    }
+    .word.has-punct-slot {
+      cursor: pointer;
+    }
+    .word.has-punct-slot:active {
+      background: #e0f2f1;
+    }
+
+    .punct-mark {
+      display: inline-block;
+      color: #00695c;
+      font-weight: 700;
+      margin-left: 1px;
+      text-align: center;
+      transition: color 0.2s;
+    }
+    .punct-mark.empty {
+      display: none;
+    }
+    .punct-mark.correct-mark { color: var(--success); }
+    .punct-mark.incorrect-mark { color: var(--danger); }
+
+    input.blank {
+      border: none;
+      border-bottom: 2px solid #90caf9;
+      background: #e3f2fd;
+      padding: 3px 6px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      color: #0d47a1;
+      border-radius: 4px 4px 0 0;
+      min-width: 32px;
+      text-align: center;
+      -webkit-user-select: text;
+      user-select: text;
+    }
+    input.blank:focus {
+      outline: none;
+      border-bottom-color: var(--primary);
+      background: #bbdefb;
+    }
+    input.blank.correct-input {
+      border-bottom-color: var(--success);
+      background: #c8e6c9;
+      color: #1b5e20;
+    }
+    input.blank.incorrect-input {
+      border-bottom-color: var(--danger);
+      background: #ffcdd2;
+      color: #b71c1c;
+    }
+
+    .punct-menu {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+      padding: 8px;
+      gap: 6px;
+      flex-wrap: wrap;
+      max-width: 280px;
+      border: 1px solid #e0e0e0;
+    }
+    .punct-menu.show { display: flex; }
+    .punct-menu button {
+      width: 42px; height: 42px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      background: #f5f5f5;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .punct-menu button:hover {
+      background: #e0f2f1;
+      border-color: var(--accent);
+      transform: scale(1.08);
+    }
+    .punct-menu .clear-btn {
+      width: auto;
+      padding: 0 12px;
+      font-size: 0.85rem;
+      color: #c62828;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 26px 0 16px;
+      flex-wrap: wrap;
+    }
+    .controls button {
+      padding: 13px 24px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .controls button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+    }
+    #checkBtn { background: linear-gradient(90deg,#2e7d32,#43a047); color:#fff; }
+    #resetBtn { background: #eceff1; color:#37474f; }
+    #showAnswersBtn { background: linear-gradient(90deg,#1565c0,#1976d2); color:#fff; }
+
+    .result-box {
+      display: none;
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      margin-top: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    }
+    .result-box.show { display: block; }
+    .score {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .score.good { color: var(--success); }
+    .score.medium { color: #ef6c00; }
+    .score.bad { color: var(--danger); }
+
+    .explanation {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #fff8e1;
+      border-left: 4px solid #ffb300;
+      font-size: 0.96rem;
+    }
+    .explanation h4 { margin-bottom: 6px; color: #e65100; }
+    .explanation ul { padding-left: 18px; }
+    .explanation li { margin-bottom: 5px; }
+    .correct-answer { background: #e8f5e9; border-left-color: var(--success); }
+    .correct-answer h4 { color: var(--success); }
+
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      padding: 12px;
+      color: #546e7a;
+      font-size: 0.88rem;
+    }
+
+    .longpress-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 999;
+    }
+    .longpress-hint.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🏆 Упражнение 93</h1>
+      <p>Развлечения и спорт · Орфография и пунктуация</p>
+    </header>
+
+    <div class="how-to">
+      <h3>📋 Как выполнять упражнение</h3>
+      <ol>
+        <li><strong>Буквы:</strong> в синие поля введите пропущенные буквы (и раскройте скобки).</li>
+        <li><strong>Знаки препинания:</strong> нажмите и <span class="key">удерживайте</span> слово, после которого может стоять знак. Появится меню — выберите нужный знак.</li>
+        <li>Чтобы убрать знак — снова удерживайте слово и нажмите «Убрать».</li>
+        <li>Когда закончите — нажмите «Проверить».</li>
+      </ol>
+    </div>
+
+    <div class="task">
+      <strong>Задание:</strong> Спишите предложения, вставляя пропущенные буквы, раскрывая скобки, расставляя недостающие знаки препинания.
+    </div>
+
+    <!-- 1 -->
+    <div class="sentence-card" id="s1">
+      <span class="sentence-num">1</span>
+      <div class="sentence-body">
+        <span>Закончив</span>
+        <span>писать</span>
+        <span>сц</span><input class="blank" data-id="1a" maxlength="3" size="3"><span>нарий</span>
+        <span class="word has-punct-slot" data-punct-id="1p">праз<input class="blank" data-id="1b" maxlength="2" size="2">ника<span class="punct-mark empty"></span></span>
+        <span>мы</span>
+        <span>вернулись</span>
+        <span>домой</span>
+        <span>довольные</span>
+        <span>и</span>
+        <span>удовлетворе</span><input class="blank" data-id="1c" maxlength="3" size="3"><span>ые.</span>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="sentence-card" id="s2">
+      <span class="sentence-num">2</span>
+      <div class="sentence-body">
+        <span>Уча</span><input class="blank" data-id="2a" maxlength="2" size="2"><span>твуя</span>
+        <span>в</span>
+        <span>проекте</span>
+        <span class="word has-punct-slot" data-punct-id="2p">«Горо<input class="blank" data-id="2b" maxlength="2" size="2">ское ор<input class="blank" data-id="2c" maxlength="2" size="2">ентирование»<span class="punct-mark empty"></span></span>
+        <span>мы</span>
+        <span>ставили</span>
+        <span>себе</span>
+        <span>задачу</span>
+        <span>изучить</span>
+        <span>наш</span>
+        <span>город</span>
+        <span>«в</span>
+        <span>динамике</span>
+        <span>по</span><input class="blank" data-id="2d" maxlength="2" size="2"><span>седневной</span>
+        <span>жизни».</span>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="sentence-card" id="s3">
+      <span class="sentence-num">3</span>
+      <div class="sentence-body">
+        <span>Нами</span>
+        <span>планиру</span><input class="blank" data-id="3a" maxlength="2" size="2"><span>тся</span>
+        <span>возродить</span>
+        <input class="blank" data-id="3b" maxlength="3" size="3"><span>которые</span>
+        <span>виды</span>
+        <span>спорта</span>
+        <span>и</span>
+        <span>ра</span><input class="blank" data-id="3c" maxlength="2" size="2"><span>влечений</span>
+        <span class="word has-punct-slot" data-punct-id="3p">в особенности<span class="punct-mark empty"></span></span>
+        <span>нац</span><input class="blank" data-id="3d" maxlength="2" size="2"><span>ональные.</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="sentence-card" id="s4">
+      <span class="sentence-num">4</span>
+      <div class="sentence-body">
+        <span>Люди</span>
+        <span>постарше</span>
+        <span>и</span>
+        <span>поопытнее</span>
+        <span>должны</span>
+        <span>помочь</span>
+        <span>молодым</span>
+        <span>сохр</span><input class="blank" data-id="4a" maxlength="2" size="2"><span>нить</span>
+        <span>лу</span><input class="blank" data-id="4b" maxlength="2" size="2"><span>шие</span>
+        <span>традиц</span><input class="blank" data-id="4c" maxlength="2" size="2"><span>и</span>
+        <span>в</span>
+        <span>спорте.</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="sentence-card" id="s5">
+      <span class="sentence-num">5</span>
+      <div class="sentence-body">
+        <span>Вдохновле</span><input class="blank" data-id="5a" maxlength="3" size="3"><span>ые</span>
+        <span>идеей</span>
+        <span>организац</span><input class="blank" data-id="5b" maxlength="2" size="2"><span>и</span>
+        <span class="word has-punct-slot" data-punct-id="5p">флешмоба<span class="punct-mark empty"></span></span>
+        <span>мы</span>
+        <input class="blank" data-id="5c" maxlength="3" size="3"><span>могли</span>
+        <span>больше</span>
+        <input class="blank" data-id="5d" maxlength="3" size="3">
+        <input class="blank" data-id="5e" maxlength="2" size="2"><span>чем</span>
+        <span>думать.</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="sentence-card" id="s6">
+      <span class="sentence-num">6</span>
+      <div class="sentence-body">
+        <span>Поставьте</span>
+        <span>себе</span>
+        <span>главную</span>
+        <span class="word has-punct-slot" data-punct-id="6p1">цель<span class="punct-mark empty"></span></span>
+        <span>ответстве</span><input class="blank" data-id="6a" maxlength="3" size="3"><span>о</span>
+        <span>относи</span><input class="blank" data-id="6b" maxlength="3" size="3"><span>ся</span>
+        <span>к</span>
+        <span>своему</span>
+        <span>здоров</span><input class="blank" data-id="6c" maxlength="2" size="2"><span>ю</span>
+        <span class="word has-punct-slot" data-punct-id="6p2">активно<span class="punct-mark empty"></span></span>
+        <span>занима</span><input class="blank" data-id="6d" maxlength="3" size="3"><span>ся</span>
+        <span class="word has-punct-slot" data-punct-id="6p3">спортом<span class="punct-mark empty"></span></span>
+        <span>вести</span>
+        <span>здоровый</span>
+        <span>образ</span>
+        <span>жизни.</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="sentence-card" id="s7">
+      <span class="sentence-num">7</span>
+      <div class="sentence-body">
+        <span>Отвлечься</span>
+        <span>от</span>
+        <span>по</span><input class="blank" data-id="7a" maxlength="2" size="2"><span>седневных</span>
+        <span>забот</span>
+        <span>вам</span>
+        <span>помогут</span>
+        <span>развлечения</span>
+        <input class="blank" data-id="7b" maxlength="3" size="3"><span>обычные</span>
+        <span class="word has-punct-slot" data-punct-id="7p1">е<span class="punct-mark empty"></span></span>
+        <span>ор</span><input class="blank" data-id="7c" maxlength="2" size="2"><span>гинальные</span>
+        <span class="word has-punct-slot" data-punct-id="7p2">вдохновляющие<span class="punct-mark empty"></span></span><span>.</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="checkBtn">✅ Проверить</button>
+      <button id="resetBtn">🔄 Сбросить</button>
+      <button id="showAnswersBtn">📖 Показать ответы</button>
+    </div>
+
+    <div class="result-box" id="resultBox">
+      <div class="score" id="scoreText"></div>
+      <div id="explanations"></div>
+    </div>
+
+    <footer>
+      Учебник «Русский язык» 8 класс · Упражнение 93
+    </footer>
+  </div>
+
+  <div class="punct-menu" id="punctMenu">
+    <button data-sign=",">,</button>
+    <button data-sign="—">—</button>
+    <button data-sign=":">:</button>
+    <button data-sign=".">.</button>
+    <button data-sign="!">!</button>
+    <button data-sign="?">?</button>
+    <button data-sign=";">;</button>
+    <button class="clear-btn" data-sign="">Убрать</button>
+  </div>
+
+  <div class="longpress-hint" id="longpressHint">Удерживайте слово…</div>
+
+  <script>
+    const letterAnswers = {
+      "1a": { correct: "е", explain: "сц<strong>е</strong>нарий — пишется е." },
+      "1b": { correct: "д", explain: "праз<strong>д</strong>ника — д (праздник)." },
+      "1c": { correct: "нн", explain: "удовлетворе<strong>нн</strong>ые — нн в полном страдательном причастии." },
+      "2a": { correct: "с", explain: "Уча<strong>с</strong>твуя — с (участвовать)." },
+      "2b": { correct: "д", explain: "Горо<strong>д</strong>ское — д (город)." },
+      "2c": { correct: "и", explain: "ор<strong>и</strong>ентирование — и." },
+      "2d": { correct: "е", explain: "по<strong>е</strong>седневной — е (повседневный)." },
+      "3a": { correct: "е", explain: "планиру<strong>е</strong>тся — е (глагол)." },
+      "3b": { correct: "не", explain: "<strong>не</strong>которые — пишется раздельно (не + которые)." },
+      "3c": { correct: "з", explain: "ра<strong>з</strong>влечений — з (развлечение)." },
+      "3d": { correct: "и", explain: "нац<strong>и</strong>ональные — и." },
+      "4a": { correct: "а", explain: "сохр<strong>а</strong>нить — а." },
+      "4b": { correct: "ч", explain: "лу<strong>ч</strong>шие — ч (лучший)." },
+      "4c": { correct: "и", explain: "традиц<strong>и</strong>и — и." },
+      "5a": { correct: "нн", explain: "Вдохновле<strong>нн</strong>ые — нн в полном причастии." },
+      "5b": { correct: "и", explain: "организац<strong>и</strong>и — и." },
+      "5c": { correct: "не", explain: "<strong>не</strong> могли — отрицание не." },
+      "5d": { correct: "ни", explain: "<strong>ни</strong> о чём — усиление отрицания." },
+      "5e": { correct: "о", explain: "<strong>о</strong> чём — предлог о." },
+      "6a": { correct: "нн", explain: "ответстве<strong>нн</strong>о — нн." },
+      "6b": { correct: "ть", explain: "относи<strong>ть</strong>ся — инфинитив." },
+      "6c": { correct: "ь", explain: "здоров<strong>ь</strong>ю — мягкий знак." },
+      "6d": { correct: "ть", explain: "занима<strong>ть</strong>ся — инфинитив." },
+      "7a": { correct: "е", explain: "по<strong>е</strong>седневных — е." },
+      "7b": { correct: "не", explain: "<strong>не</strong>обычные — слитно (не + обычные, нет противопоставления)." },
+      "7c": { correct: "и", explain: "ор<strong>и</strong>гинальные — и." }
+    };
+
+    const punctAnswers = {
+      "1p":  { correct: ",",  explain: "Запятая после деепричастного оборота «Закончив писать сценарий праздника»." },
+      "2p":  { correct: ",",  explain: "Запятая после деепричастного оборота «Участвуя в проекте…»." },
+      "3p":  { correct: ",",  explain: "Запятая перед уточняющим оборотом «в особенности национальные»." },
+      "5p":  { correct: ",",  explain: "Запятая после причастного оборота «Вдохновлённые идеей организации флешмоба»." },
+      "6p1": { correct: ":",  explain: "Двоеточие после обобщающего слова «цель» перед однородными членами." },
+      "6p2": { correct: ",",  explain: "Запятая между однородными членами (инфинитивами)." },
+      "6p3": { correct: ",",  explain: "Запятая между однородными членами (инфинитивами)." },
+      "7p1": { correct: ",",  explain: "Запятая между однородными определениями." },
+      "7p2": { correct: ",",  explain: "Запятая между однородными определениями (перед последним можно не ставить, но чаще ставят)." }
+    };
+
+    // Для 7p2 допускаем и пустой вариант как правильный (перед последним однородным)
+    const punctState = {};
+    const menu = document.getElementById('punctMenu');
+    const hint = document.getElementById('longpressHint');
+    let currentPunctSlot = null;
+    let longPressTimer = null;
+
+    function showMenu(x, y, slotEl) {
+      currentPunctSlot = slotEl;
+      menu.style.left = Math.min(x, window.innerWidth - 240) + 'px';
+      menu.style.top  = Math.min(y, window.innerHeight - 130) + 'px';
+      menu.classList.add('show');
+    }
+    function hideMenu() {
+      menu.classList.remove('show');
+      currentPunctSlot = null;
+    }
+
+    document.querySelectorAll('.word.has-punct-slot').forEach(word => {
+      word.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        longPressTimer = setTimeout(() => {
+          showMenu(e.clientX, e.clientY + 10, word);
+          hint.classList.remove('show');
+        }, 450);
+        hint.classList.add('show');
+      });
+      word.addEventListener('mouseup', () => { clearTimeout(longPressTimer); hint.classList.remove('show'); });
+      word.addEventListener('mouseleave', () => { clearTimeout(longPressTimer); hint.classList.remove('show'); });
+
+      word.addEventListener('touchstart', e => {
+        const t = e.touches[0];
+        longPressTimer = setTimeout(() => {
+          showMenu(t.clientX, t.clientY + 10, word);
+          hint.classList.remove('show');
+        }, 450);
+        hint.classList.add('show');
+      }, { passive: true });
+      word.addEventListener('touchend', () => { clearTimeout(longPressTimer); hint.classList.remove('show'); });
+      word.addEventListener('touchmove', () => { clearTimeout(longPressTimer); hint.classList.remove('show'); });
+      word.addEventListener('contextmenu', e => e.preventDefault());
+    });
+
+    menu.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!currentPunctSlot) return;
+        const sign = btn.dataset.sign;
+        const id = currentPunctSlot.dataset.punctId;
+        const markEl = currentPunctSlot.querySelector('.punct-mark');
+        if (sign === '') {
+          markEl.textContent = '';
+          markEl.classList.add('empty');
+          delete punctState[id];
+        } else {
+          markEl.textContent = sign;
+          markEl.classList.remove('empty');
+          punctState[id] = sign;
+        }
+        hideMenu();
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (!menu.contains(e.target) && !e.target.closest('.word.has-punct-slot')) hideMenu();
+    });
+
+    function normalize(str) {
+      return (str || '').trim().toLowerCase().replace(/ё/g, 'е');
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', () => {
+      let total = 0, correct = 0;
+      const errors = [];
+
+      document.querySelectorAll('.sentence-card').forEach(c => c.classList.remove('correct','incorrect'));
+      document.querySelectorAll('input.blank').forEach(i => i.classList.remove('correct-input','incorrect-input'));
+      document.querySelectorAll('.punct-mark').forEach(m => m.classList.remove('correct-mark','incorrect-mark'));
+
+      document.querySelectorAll('input.blank').forEach(inp => {
+        const id = inp.dataset.id;
+        if (!letterAnswers[id]) return;
+        total++;
+        const user = normalize(inp.value);
+        const right = normalize(letterAnswers[id].correct);
+        if (user === right) {
+          correct++;
+          inp.classList.add('correct-input');
+        } else {
+          inp.classList.add('incorrect-input');
+          errors.push({ user: inp.value || '(пусто)', correct: letterAnswers[id].correct, explain: letterAnswers[id].explain });
+        }
+      });
+
+      Object.keys(punctAnswers).forEach(id => {
+        total++;
+        const user = punctState[id] || '';
+        const right = punctAnswers[id].correct;
+        const markEl = document.querySelector(`[data-punct-id="${id}"] .punct-mark`);
+        // Для 7p2 допускаем и отсутствие запятой
+        const ok = (user === right) || (id === '7p2' && user === '');
+        if (ok) {
+          correct++;
+          if (markEl) markEl.classList.add('correct-mark');
+        } else {
+          if (markEl) markEl.classList.add('incorrect-mark');
+          errors.push({ user: user || '(нет знака)', correct: right, explain: punctAnswers[id].explain });
+        }
+      });
+
+      for (let i = 1; i <= 7; i++) {
+        const card = document.getElementById('s' + i);
+        if (!card) continue;
+        const bad = card.querySelectorAll('.incorrect-input, .incorrect-mark');
+        card.classList.add(bad.length ? 'incorrect' : 'correct');
+      }
+
+      const percent = total ? Math.round((correct / total) * 100) : 100;
+      let cls = 'good', msg = '';
+      if (percent === 100) msg = `Отлично! Все ${total} ответов верны! 🏆`;
+      else if (percent >= 70) { cls = 'medium'; msg = `Хорошо! Верно ${correct} из ${total} (${percent}%).`; }
+      else { cls = 'bad'; msg = `Нужно ещё потренироваться. Верно ${correct} из ${total} (${percent}%).`; }
+
+      const scoreText = document.getElementById('scoreText');
+      scoreText.className = 'score ' + cls;
+      scoreText.textContent = msg;
+
+      const expl = document.getElementById('explanations');
+      expl.innerHTML = '';
+      if (errors.length) {
+        const box = document.createElement('div');
+        box.className = 'explanation';
+        box.innerHTML = `<h4>❌ Разбор ошибок (${errors.length}):</h4><ul></ul>`;
+        const ul = box.querySelector('ul');
+        errors.forEach(e => {
+          const li = document.createElement('li');
+          li.innerHTML = `Вы: «<strong>${e.user}</strong>» → правильно «<strong>${e.correct}</strong>». ${e.explain}`;
+          ul.appendChild(li);
+        });
+        expl.appendChild(box);
+      } else {
+        const box = document.createElement('div');
+        box.className = 'explanation correct-answer';
+        box.innerHTML = `<h4>✅ Поздравляем!</h4><p>Все буквы и знаки препинания расставлены правильно!</p>`;
+        expl.appendChild(box);
+      }
+
+      document.getElementById('resultBox').classList.add('show');
+      document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.querySelectorAll('input.blank').forEach(i => {
+        i.value = '';
+        i.classList.remove('correct-input','incorrect-input');
+      });
+      document.querySelectorAll('.punct-mark').forEach(m => {
+        m.textContent = '';
+        m.classList.add('empty');
+        m.classList.remove('correct-mark','incorrect-mark');
+      });
+      Object.keys(punctState).forEach(k => delete punctState[k]);
+      document.querySelectorAll('.sentence-card').forEach(c => c.classList.remove('correct','incorrect'));
+      document.getElementById('resultBox').classList.remove('show');
+      document.getElementById('explanations').innerHTML = '';
+    });
+
+    document.getElementById('showAnswersBtn').addEventListener('click', () => {
+      document.querySelectorAll('input.blank').forEach(inp => {
+        const id = inp.dataset.id;
+        if (letterAnswers[id]) {
+          inp.value = letterAnswers[id].correct;
+          inp.classList.remove('incorrect-input');
+          inp.classList.add('correct-input');
+        }
+      });
+      Object.keys(punctAnswers).forEach(id => {
+        const el = document.querySelector(`[data-punct-id="${id}"]`);
+        if (el) {
+          const mark = el.querySelector('.punct-mark');
+          mark.textContent = punctAnswers[id].correct;
+          mark.classList.remove('empty','incorrect-mark');
+          mark.classList.add('correct-mark');
+          punctState[id] = punctAnswers[id].correct;
+        }
+      });
+      document.querySelectorAll('.sentence-card').forEach(c => {
+        c.classList.remove('incorrect');
+        c.classList.add('correct');
+      });
+
+      const expl = document.getElementById('explanations');
+      expl.innerHTML = '';
+      const box = document.createElement('div');
+      box.className = 'explanation correct-answer';
+      box.innerHTML = `<h4>📖 Правильные ответы и объяснения</h4><ul></ul>`;
+      const ul = box.querySelector('ul');
+      [...Object.values(letterAnswers), ...Object.values(punctAnswers)].forEach(a => {
+        const li = document.createElement('li');
+        li.innerHTML = a.explain;
+        ul.appendChild(li);
+      });
+      expl.appendChild(box);
+
+      document.getElementById('scoreText').className = 'score good';
+      document.getElementById('scoreText').textContent = 'Ответы показаны. Изучите объяснения!';
+      document.getElementById('resultBox').classList.add('show');
+    });
+  </script>
+</body>
+</html>

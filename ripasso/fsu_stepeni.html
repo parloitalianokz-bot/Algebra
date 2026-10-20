@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Формулы сокращённого умножения и свойства степеней</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        header h1 {
+            font-size: 1.9rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        nav button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
+
+        nav button:hover, nav button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 {
+            margin: 20px 0 12px;
+            color: var(--text);
+            font-size: 1.15rem;
+        }
+
+        .formula {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 14px 18px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 1.25rem;
+            overflow-x: auto;
+        }
+
+        .example {
+            background: #ecfdf5;
+            border-left: 4px solid var(--success);
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip {
+            background: #fffbeb;
+            border-left: 4px solid var(--warning);
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* Quiz styles */
+        .question {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        .question p {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .options label {
+            display: block;
+            padding: 10px 14px;
+            margin: 6px 0;
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .options label:hover {
+            border-color: var(--primary-light);
+            background: #eef2ff;
+        }
+
+        .options input {
+            margin-right: 10px;
+        }
+
+        .options label.correct {
+            border-color: var(--success);
+            background: #ecfdf5;
+        }
+
+        .options label.wrong {
+            border-color: var(--danger);
+            background: #fef2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #4338ca;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-secondary {
+            background: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.good {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .result.bad {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* Exercises */
+        .exercise {
+            margin-bottom: 28px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .exercise h4 {
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .exercise input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: 'Cambria Math', serif;
+            margin: 8px 0;
+        }
+
+        .exercise input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .feedback {
+            margin-top: 8px;
+            font-weight: 600;
+            min-height: 24px;
+        }
+
+        .feedback.correct {
+            color: var(--success);
+        }
+
+        .feedback.wrong {
+            color: var(--danger);
+        }
+
+        .progress {
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.4rem; }
+            .formula { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📐 Формулы сокращённого умножения<br>и свойства степеней</h1>
+            <p>Простое и понятное объяснение + интерактивный тренажёр</p>
+        </header>
+
+        <nav>
+            <button class="nav-btn active" data-section="stepeni">Степени</button>
+            <button class="nav-btn" data-section="fsu">Формулы ФСУ</button>
+            <button class="nav-btn" data-section="quiz">Квиз</button>
+            <button class="nav-btn" data-section="exercises">Упражнения</button>
+        </nav>
+
+        <!-- ========== СТЕПЕНИ ========== -->
+        <section id="stepeni" class="active">
+            <div class="card">
+                <h2>⚡ Свойства степеней</h2>
+                <p>Степень — это удобный способ записать умножение одинаковых множителей. Например, \( a^4 = a \cdot a \cdot a \cdot a \).</p>
+                
+                <div class="tip">
+                    <strong>Запомни:</strong> Основание — это число, которое умножается. Показатель — сколько раз оно умножается само на себя.
+                </div>
+
+                <h3>Основные свойства</h3>
+
+                <div class="formula">a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></div>
+                <div class="example">Пример: 2<sup>3</sup> · 2<sup>4</sup> = 2<sup>7</sup> = 128</div>
+
+                <div class="formula">a<sup>m</sup> / a<sup>n</sup> = a<sup>m−n</sup> <small>(a ≠ 0)</small></div>
+                <div class="example">Пример: 5<sup>6</sup> / 5<sup>2</sup> = 5<sup>4</sup> = 625</div>
+
+                <div class="formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup></div>
+                <div class="example">Пример: (3<sup>2</sup>)<sup>3</sup> = 3<sup>6</sup> = 729</div>
+
+                <div class="formula">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div>
+                <div class="example">Пример: (2 · 5)<sup>3</sup> = 2<sup>3</sup> · 5<sup>3</sup> = 8 · 125 = 1000</div>
+
+                <div class="formula">(a / b)<sup>n</sup> = a<sup>n</sup> / b<sup>n</sup> <small>(b ≠ 0)</small></div>
+                <div class="example">Пример: (6 / 2)<sup>4</sup> = 6<sup>4</sup> / 2<sup>4</sup> = 1296 / 16 = 81</div>
+
+                <div class="formula">a<sup>0</sup> = 1 <small>(a ≠ 0)</small></div>
+                <div class="example">Пример: 17<sup>0</sup> = 1, (−5)<sup>0</sup> = 1</div>
+
+                <div class="formula">a<sup>−n</sup> = 1 / a<sup>n</sup> <small>(a ≠ 0)</small></div>
+                <div class="example">Пример: 2<sup>−3</sup> = 1 / 2<sup>3</sup> = 1/8</div>
+
+                <div class="tip">
+                    <strong>Важно!</strong> Отрицательное основание в чётной степени даёт положительный результат, в нечётной — отрицательный. Например: (−2)<sup>4</sup> = 16, (−2)<sup>3</sup> = −8.
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ФСУ ========== -->
+        <section id="fsu">
+            <div class="card">
+                <h2>✖️ Формулы сокращённого умножения (ФСУ)</h2>
+                <p>Эти формулы позволяют быстро раскрывать скобки и упрощать выражения. Их обязательно нужно выучить наизусть!</p>
+
+                <h3>Квадрат суммы и разности</h3>
+                <div class="formula">(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></div>
+                <div class="example">Пример: (x + 3)<sup>2</sup> = x<sup>2</sup> + 6x + 9</div>
+
+                <div class="formula">(a − b)<sup>2</sup> = a<sup>2</sup> − 2ab + b<sup>2</sup></div>
+                <div class="example">Пример: (y − 5)<sup>2</sup> = y<sup>2</sup> − 10y + 25</div>
+
+                <h3>Разность квадратов</h3>
+                <div class="formula">(a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup></div>
+                <div class="example">Пример: (7 + x)(7 − x) = 49 − x<sup>2</sup></div>
+
+                <h3>Куб суммы и разности</h3>
+                <div class="formula">(a + b)<sup>3</sup> = a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup> + b<sup>3</sup></div>
+                <div class="example">Пример: (m + 2)<sup>3</sup> = m<sup>3</sup> + 6m<sup>2</sup> + 12m + 8</div>
+
+                <div class="formula">(a − b)<sup>3</sup> = a<sup>3</sup> − 3a<sup>2</sup>b + 3ab<sup>2</sup> − b<sup>3</sup></div>
+                <div class="example">Пример: (k − 1)<sup>3</sup> = k<sup>3</sup> − 3k<sup>2</sup> + 3k − 1</div>
+
+                <h3>Сумма и разность кубов</h3>
+                <div class="formula">a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> − ab + b<sup>2</sup>)</div>
+                <div class="example">Пример: 8 + 27 = 2<sup>3</sup> + 3<sup>3</sup> = (2+3)(4 − 6 + 9) = 5 · 7 = 35</div>
+
+                <div class="formula">a<sup>3</sup> − b<sup>3</sup> = (a − b)(a<sup>2</sup> + ab + b<sup>2</sup>)</div>
+                <div class="example">Пример: 64 − 8 = 4<sup>3</sup> − 2<sup>3</sup> = (4−2)(16 + 8 + 4) = 2 · 28 = 56</div>
+
+                <div class="tip">
+                    <strong>Как запомнить:</strong><br>
+                    • Квадрат суммы/разности: «квадрат первого +/− два произведения + квадрат второго»<br>
+                    • Разность квадратов: «сумма на разность»<br>
+                    • Кубы: знак в середине такой же, как в скобке (для суммы кубов) или противоположный (для разности).
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== КВИЗ ========== -->
+        <section id="quiz">
+            <div class="card">
+                <h2>🧠 Квиз: проверь себя</h2>
+                <p>Выбери правильный вариант ответа. После завершения нажми «Проверить».</p>
+                
+                <div class="progress">
+                    <div class="progress-bar" id="quiz-progress"></div>
+                </div>
+
+                <div id="quiz-questions">
+                    <!-- Вопросы будут добавлены через JS -->
+                </div>
+
+                <button class="btn" id="check-quiz">Проверить ответы</button>
+                <button class="btn btn-secondary" id="reset-quiz" style="display:none; margin-left:10px;">Пройти заново</button>
+                
+                <div class="result" id="quiz-result"></div>
+            </div>
+        </section>
+
+        <!-- ========== УПРАЖНЕНИЯ ========== -->
+        <section id="exercises">
+            <div class="card">
+                <h2>✏️ Интерактивные упражнения</h2>
+                <p>Раскрой скобки или упрости выражение. Вводи ответ в поле и нажимай «Проверить».</p>
+
+                <div class="exercise" data-answer="x²+6x+9">
+                    <h4>1. Раскрой скобки: (x + 3)²</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="a²-10a+25">
+                    <h4>2. Раскрой скобки: (a − 5)²</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="m²-16">
+                    <h4>3. Упрости: (m + 4)(m − 4)</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="8">
+                    <h4>4. Вычисли: 2³ · 2⁰</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="1/16">
+                    <h4>5. Вычисли: 2⁻⁴</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="y³+6y²+12y+8">
+                    <h4>6. Раскрой скобки: (y + 2)³</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="27">
+                    <h4>7. Вычисли: (3²)<sup>3/2</sup> · 3⁰</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+
+                <div class="exercise" data-answer="x³-8">
+                    <h4>8. Упрости: (x − 2)(x² + 2x + 4)</h4>
+                    <input type="text" placeholder="Введи ответ...">
+                    <button class="btn btn-success check-ex">Проверить</button>
+                    <div class="feedback"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            Удачи в изучении математики! 💪 Повторяй формулы каждый день — и всё получится.
+        </footer>
+    </div>
+
+    <script>
+        // ========== НАВИГАЦИЯ ==========
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('section');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => b.classList.remove('active'));
+                sections.forEach(s => s.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.section).classList.add('active');
+            });
+        });
+
+        // ========== КВИЗ ==========
+        const quizData = [
+            {
+                question: "Чему равно (a + b)² ?",
+                options: ["a² + b²", "a² + 2ab + b²", "a² − 2ab + b²", "a² + ab + b²"],
+                correct: 1
+            },
+            {
+                question: "Чему равно (a − b)(a + b) ?",
+                options: ["a² + b²", "a² − b²", "a² − 2ab + b²", "2a − 2b"],
+                correct: 1
+            },
+            {
+                question: "Чему равно a³ − b³ ?",
+                options: ["(a − b)(a² − ab + b²)", "(a − b)(a² + ab + b²)", "(a + b)(a² − ab + b²)", "(a − b)³"],
+                correct: 1
+            },
+            {
+                question: "Чему равно 5⁰ ?",
+                options: ["0", "5", "1", "не определено"],
+                correct: 2
+            },
+            {
+                question: "Чему равно 3² · 3³ ?",
+                options: ["3⁵", "3⁶", "9⁵", "3"],
+                correct: 0
+            },
+            {
+                question: "Чему равно (2³)² ?",
+                options: ["2⁵", "2⁶", "4³", "2⁹"],
+                correct: 1
+            },
+            {
+                question: "Чему равно 4⁻¹ ?",
+                options: ["−4", "1/4", "−1/4", "4"],
+                correct: 1
+            },
+            {
+                question: "Чему равно (x − 3)² ?",
+                options: ["x² − 9", "x² − 6x + 9", "x² + 6x + 9", "x² − 3x + 9"],
+                correct: 1
+            }
+        ];
+
+        const quizContainer = document.getElementById('quiz-questions');
+        const progressBar = document.getElementById('quiz-progress');
+
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `
+                    <p>${i + 1}. ${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((opt, j) => `
+                            <label>
+                                <input type="radio" name="q${i}" value="${j}">
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                `;
+                quizContainer.appendChild(div);
+            });
+            progressBar.style.width = '0%';
+        }
+
+        renderQuiz();
+
+        document.getElementById('check-quiz').addEventListener('click', () => {
+            let score = 0;
+            const resultDiv = document.getElementById('quiz-result');
+            
+            quizData.forEach((q, i) => {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const labels = document.querySelectorAll(`input[name="q${i}"]`);
+                
+                labels.forEach(inp => {
+                    const label = inp.parentElement;
+                    label.classList.remove('correct', 'wrong');
+                    if (parseInt(inp.value) === q.correct) {
+                        label.classList.add('correct');
+                    }
+                });
+
+                if (selected) {
+                    const label = selected.parentElement;
+                    if (parseInt(selected.value) === q.correct) {
+                        score++;
+                    } else {
+                        label.classList.add('wrong');
+                    }
+                }
+            });
+
+            const percent = Math.round((score / quizData.length) * 100);
+            progressBar.style.width = percent + '%';
+
+            resultDiv.className = 'result show ' + (score >= 6 ? 'good' : 'bad');
+            resultDiv.innerHTML = `Твой результат: <strong>${score} из ${quizData.length}</strong> (${percent}%)<br>
+                ${score === 8 ? 'Отлично! Ты мастер формул! 🏆' : 
+                  score >= 6 ? 'Хорошо! Осталось чуть-чуть подтянуть. 👍' : 
+                  'Нужно ещё попрактиковаться. Вернись к теории! 📚'}`;
+
+            document.getElementById('reset-quiz').style.display = 'inline-block';
+        });
+
+        document.getElementById('reset-quiz').addEventListener('click', () => {
+            renderQuiz();
+            document.getElementById('quiz-result').className = 'result';
+            document.getElementById('reset-quiz').style.display = 'none';
+            progressBar.style.width = '0%';
+        });
+
+        // ========== УПРАЖНЕНИЯ ==========
+        function normalizeAnswer(str) {
+            return str
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, '')
+                .replace(/\*\*/g, '^')
+                .replace(/×/g, '*')
+                // Преобразуем ^2, ^3 и т.д. в символы-апексы
+                .replace(/\^2/g, '²')
+                .replace(/\^3/g, '³')
+                .replace(/\^4/g, '⁴')
+                .replace(/\^5/g, '⁵')
+                .replace(/\^0/g, '⁰')
+                .replace(/\^1/g, '¹')
+                .replace(/\^-1/g, '⁻¹')
+                .replace(/\^-2/g, '⁻²')
+                .replace(/\^-3/g, '⁻³')
+                .replace(/\^-4/g, '⁻⁴')
+                // На случай если пользователь написал x2 вместо x²
+                .replace(/([a-z])2(?![0-9])/g, '$1²')
+                .replace(/([a-z])3(?![0-9])/g, '$1³');
+        }
+
+        document.querySelectorAll('.check-ex').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const exercise = btn.closest('.exercise');
+                const input = exercise.querySelector('input');
+                const feedback = exercise.querySelector('.feedback');
+                const correct = normalizeAnswer(exercise.dataset.answer);
+                const user = normalizeAnswer(input.value);
+                
+                if (user === correct) {
+                    feedback.textContent = '✅ Верно! Отлично!';
+                    feedback.className = 'feedback correct';
+                    input.style.borderColor = 'var(--success)';
+                } else {
+                    feedback.textContent = '❌ Неверно. Правильный ответ: ' + exercise.dataset.answer;
+                    feedback.className = 'feedback wrong';
+                    input.style.borderColor = 'var(--danger)';
+                }
+            });
+        });
+
+        // Enter key support for exercises
+        document.querySelectorAll('.exercise input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    input.closest('.exercise').querySelector('.check-ex').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

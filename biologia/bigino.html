@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шпаргалка · Биология 8 класс · Подготовка к СОЧ (§§ 1–15)</title>
+<style>
+  :root {
+    --green: #059669;
+    --teal: #0d9488;
+    --blue: #0284c8;
+    --purple: #7c3aed;
+    --orange: #ea580c;
+    --pink: #db2777;
+    --dark: #0f172a;
+    --light: #f8fafc;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(160deg, #ecfdf5 0%, #e0f2fe 50%, #faf5ff 100%);
+    color: var(--dark);
+    line-height: 1.6;
+    padding: 20px 12px 60px;
+  }
+  section[id] { scroll-margin-top: 92px; }
+  .reading-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 20;
+    height: 5px;
+    background: rgba(15,23,42,0.12);
+  }
+  .reading-progress-bar {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #059669, #38bdf8, #7c3aed);
+    transition: width 0.12s linear;
+  }
+  .progress-label {
+    position: fixed;
+    left: 14px;
+    bottom: 16px;
+    z-index: 19;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.94);
+    color: #334155;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(15,23,42,0.12);
+  }
+  .wrapper {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    padding: 32px 20px 28px;
+    background: linear-gradient(135deg, #065f46, #0d9488);
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 40px rgba(6,95,70,0.25);
+  }
+  header h1 {
+    font-size: 1.85rem;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  header .subtitle {
+    opacity: 0.92;
+    font-size: 1rem;
+  }
+  header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+
+  /* Navigation */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  nav a {
+    text-decoration: none;
+    background: white;
+    color: var(--dark);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  nav a:hover, nav a:focus-visible {
+    background: var(--teal);
+    color: white;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  nav a:focus-visible { box-shadow: 0 0 0 3px rgba(13,148,136,0.3); }
+
+  /* Section cards */
+  .section {
+    background: white;
+    border-radius: 18px;
+    margin-bottom: 22px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+  }
+  .section-header {
+    padding: 16px 22px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header .icon {
+    font-size: 1.5rem;
+  }
+  .section-body {
+    padding: 20px 22px 24px;
+  }
+
+  /* Color variants */
+  .s1 .section-header { background: linear-gradient(90deg, #059669, #10b981); }
+  .s2 .section-header { background: linear-gradient(90deg, #0284c8, #38bdf8); }
+  .s3 .section-header { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .s4 .section-header { background: linear-gradient(90deg, #ea580c, #fb923c); }
+  .s5 .section-header { background: linear-gradient(90deg, #db2777, #f472b6); }
+  .s6 .section-header { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+  .s7 .section-header { background: linear-gradient(90deg, #4f46e5, #818cf8); }
+  .s8 .section-header { background: linear-gradient(90deg, #b45309, #f59e0b); }
+  .s9 .section-header { background: linear-gradient(90deg, #be123c, #fb7185); }
+  .s10 .section-header { background: linear-gradient(90deg, #0369a1, #0ea5e9); }
+
+  h3 {
+    font-size: 1.05rem;
+    margin: 16px 0 8px;
+    color: #0f172a;
+  }
+  h3:first-child { margin-top: 0; }
+
+  ul, ol {
+    padding-left: 20px;
+    margin: 8px 0 12px;
+  }
+  li { margin-bottom: 5px; }
+
+  .key {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 10px 14px;
+    border-radius: 0 10px 10px 0;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  .key strong { color: #b45309; }
+  .tip::before {
+    content: "ВАЖНО";
+    display: inline-block;
+    margin-right: 7px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    vertical-align: 1px;
+  }
+
+  .term {
+    display: inline-block;
+    background: #ecfdf5;
+    color: #065f46;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  a.term { text-decoration: underline dotted; text-underline-offset: 3px; }
+  a.term:hover, a.term:focus-visible { background: #d1fae5; outline: 2px solid #059669; }
+
+  .quick-nav {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .quick-nav button {
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 14px;
+    background: #0f766e;
+    color: white;
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.2);
+    cursor: pointer;
+  }
+  .quick-nav button:hover, .quick-nav button:focus-visible { background: #115e59; outline: 3px solid rgba(13,148,136,0.3); }
+  .quick-nav button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 12px 0;
+  }
+  @media (max-width: 600px) {
+    body { padding: 12px 10px 40px; }
+    header { padding: 26px 16px 22px; border-radius: 16px; }
+    header h1 { font-size: 1.55rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .section-header { padding: 14px 16px; font-size: 1.05rem; }
+    .section-body { padding: 18px 16px 20px; }
+    nav {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      position: sticky;
+      top: 8px;
+      z-index: 5;
+      padding: 8px;
+      margin: 0 -2px 20px;
+      border-radius: 12px;
+      background: rgba(248,250,252,0.94);
+      box-shadow: 0 4px 16px rgba(15,23,42,0.12);
+      backdrop-filter: blur(10px);
+      scrollbar-width: thin;
+    }
+    nav a { flex: 0 0 auto; }
+    .table-wrap table { min-width: 520px; }
+    .progress-label { left: 8px; bottom: 10px; font-size: 0.7rem; }
+    .quick-nav { right: 8px; bottom: 8px; }
+    .quick-nav button { padding: 8px 11px; font-size: 0.76rem; }
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #0f172a;
+  }
+  .card p, .card ul {
+    font-size: 0.9rem;
+    color: #334155;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background: #f1f5f9;
+    font-weight: 700;
+  }
+  tr:nth-child(even) { background: #f8fafc; }
+
+  .tip {
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 10px 14px;
+    border-radius: 0 10px 10px 0;
+    margin: 12px 0;
+    font-size: 0.92rem;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #64748b;
+    font-size: 0.85rem;
+  }
+
+  /* Print friendly */
+  @media print {
+    .reading-progress, .progress-label, .quick-nav { display: none; }
+    body { background: white; padding: 0; font-size: 10pt; line-height: 1.4; }
+    .wrapper { max-width: none; }
+    header { box-shadow: none; padding: 16px; margin-bottom: 14px; }
+    nav { display: none; }
+    .section { box-shadow: none; margin-bottom: 12px; break-inside: auto; }
+    .section-header { break-after: avoid; padding: 10px 14px; }
+    .section-body { padding: 12px 14px; }
+    .card, .key, .tip, tr { break-inside: avoid; }
+    footer { margin-top: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress-bar" id="readingProgressBar"></div></div>
+<div class="progress-label" id="progressLabel" aria-live="polite">Раздел 1 из 11</div>
+<div class="wrapper">
+
+<header>
+  <h1>🧬 Шпаргалка по биологии</h1>
+  <div class="subtitle">8 класс · Подготовка к СОЧ · Параграфы 1–15</div>
+  <div class="badge">Всё самое важное — коротко и понятно</div>
+</header>
+
+<nav>
+  <a href="#s1">§1 Клетка</a>
+  <a href="#s2">§2 Ткани</a>
+  <a href="#s3">§3 Полимеры</a>
+  <a href="#s4">§4 Углеводы и липиды</a>
+  <a href="#s5">§5 Белки</a>
+  <a href="#s6">§6 Растения</a>
+  <a href="#s7">§7 Грибы</a>
+  <a href="#s8">§8 Однодольные / Двудольные</a>
+  <a href="#s9">§9 Животные</a>
+  <a href="#s10">§10–15 Пищеварение и витамины</a>
+  <a href="#glossary">Глоссарий</a>
+</nav>
+
+<!-- §1 -->
+<section class="section s1" id="s1">
+  <div class="section-header"><span class="icon">🔬</span> §1. Строение клеток прокариот и эукариот</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <h4>Прокариоты</h4>
+        <ul>
+          <li>Нет оформленного ядра</li>
+          <li>ДНК лежит свободно в цитоплазме</li>
+          <li>Нет мембранных органоидов</li>
+          <li>Пример: <a class="term" href="#g-bacteria">бактерии</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Эукариоты</h4>
+        <ul>
+          <li>Есть ядро (двойная мембрана)</li>
+          <li>Есть органоиды: митохондрии, ЭПС, Гольджи и др.</li>
+          <li>Примеры: растения, грибы, животные</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Главные органоиды эукариот</h3>
+    <ul>
+      <li><strong>Ядро</strong> — хранит ДНК, управляет клеткой</li>
+      <li><strong>Митохондрии</strong> — «энергетические станции» (синтез АТФ)</li>
+      <li><strong>Хлоропласты</strong> (только растения) — фотосинтез</li>
+      <li><strong>ЭПС</strong> — синтез белков (шероховатая) и липидов (гладкая)</li>
+      <li><strong>Аппарат Гольджи</strong> — упаковка и транспорт веществ</li>
+      <li><strong>Лизосомы</strong> — внутриклеточное пищеварение</li>
+      <li><strong>Рибосомы</strong> — синтез белков</li>
+      <li><strong>Вакуоль</strong> — запас веществ + тургор (у растений и грибов)</li>
+    </ul>
+
+    <div class="key">
+      <strong>Запомни:</strong> Пластиды (хлоропласты и др.) есть <em>только</em> у растений. Митохондрии — у всех эукариот.
+    </div>
+  </div>
+</section>
+
+<!-- §2 -->
+<section class="section s2" id="s2">
+  <div class="section-header"><span class="icon">🧱</span> §2. Ткани растений и животных</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <h4>Ткани растений (6 типов)</h4>
+        <ul>
+          <li>Образовательная (меристема)</li>
+          <li>Покровная</li>
+          <li>Основная (паренхима)</li>
+          <li>Проводящая (ксилема, флоэма)</li>
+          <li>Механическая (опорная)</li>
+          <li>Выделительная</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Ткани животных (4 типа)</h4>
+        <ul>
+          <li>Эпителиальная</li>
+          <li>Соединительная</li>
+          <li>Мышечная</li>
+          <li>Нервная</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip">
+      <strong>Важно:</strong> Покровная ткань растений и эпителий животных обе защищают, но у растений клетки могут быть мёртвыми (пробка), а эпителий всегда живой и хорошо регенерирует.
+    </div>
+  </div>
+</section>
+
+<!-- §3 -->
+<section class="section s3" id="s3">
+  <div class="section-header"><span class="icon">🔗</span> §3. Полимеры и мономеры</div>
+  <div class="section-body">
+    <p><a class="term" href="#g-monomer">Мономеры</a> — простые «кирпичики».<br>
+    <a class="term" href="#g-polymer">Полимеры</a> — длинные цепи из мономеров.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>Регулярные полимеры</h4>
+        <p>Мономеры одинаковы или строго чередуются</p>
+        <p>Примеры: крахмал, целлюлоза, гликоген</p>
+      </div>
+      <div class="card">
+        <h4>Нерегулярные полимеры</h4>
+        <p>Последовательность мономеров произвольна</p>
+        <p>Примеры: <strong>белки</strong>, нуклеиновые кислоты</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 -->
+<section class="section s4" id="s4">
+  <div class="section-header"><span class="icon">🍬</span> §4. Углеводы и липиды</div>
+  <div class="section-body">
+    <h3>Углеводы</h3>
+    <ul>
+      <li><strong>Энергия</strong> — глюкоза (основной источник)</li>
+      <li><strong>Запас</strong> — крахмал (растения), гликоген (животные и грибы)</li>
+      <li><strong>Структура</strong> — целлюлоза (стенки растений), хитин (грибы, членистоногие)</li>
+    </ul>
+
+    <h3>Липиды (жиры)</h3>
+    <ul>
+      <li>Запас энергии (почти в 2 раза больше, чем у углеводов)</li>
+      <li>Теплоизоляция</li>
+      <li>Основа мембран (фосфолипиды)</li>
+      <li>Защита (воски)</li>
+    </ul>
+
+    <div class="key">
+      <strong>Запомни:</strong> Гликоген = животные + грибы. Крахмал = растения.
+    </div>
+  </div>
+</section>
+
+<!-- §5 -->
+<section class="section s5" id="s5">
+  <div class="section-header"><span class="icon">🧬</span> §5. Белки</div>
+  <div class="section-body">
+    <p>Белки — <strong>нерегулярные биополимеры</strong> из <a class="term" href="#g-amino-acids">20 аминокислот</a>.</p>
+
+    <h3>Основные функции белков</h3>
+    <ul>
+      <li><strong>Строительная</strong> — основа всех структур клетки</li>
+      <li><strong>Каталитическая</strong> — ферменты (пепсин, амилаза)</li>
+      <li><strong>Транспортная</strong> — гемоглобин</li>
+      <li><strong>Защитная</strong> — антитела, фибриноген</li>
+      <li><strong>Регуляторная</strong> — гормоны (инсулин)</li>
+      <li><strong>Сократительная</strong> — актин, миозин</li>
+      <li><strong>Механическая</strong> — коллаген</li>
+      <li>Энергетическая, пигментная (меланин)</li>
+    </ul>
+
+    <div class="tip">
+      Наследственную информацию хранят <strong>нуклеиновые кислоты</strong>, а не белки!
+    </div>
+  </div>
+</section>
+
+<!-- §6 -->
+<section class="section s6" id="s6">
+  <div class="section-header"><span class="icon">🌿</span> §6. Растения: низшие и высшие</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <h4>Низшие растения</h4>
+        <p>Тело = таллом (слоевище)<br>Нет тканей и органов</p>
+        <p>Пример: <strong>водоросли</strong></p>
+      </div>
+      <div class="card">
+        <h4>Высшие растения</h4>
+        <p>Есть ткани и органы (корень, стебель, лист)</p>
+        <p>Отделы: моховидные, плауновидные, хвощевидные, папоротниковидные, голосеменные, покрытосеменные</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §7 -->
+<section class="section s7" id="s7">
+  <div class="section-header"><span class="icon">🍄</span> §7. Грибы — отдельное царство</div>
+  <div class="section-body">
+    <p>Грибы сочетают признаки растений и животных, поэтому выделены в <strong>отдельное царство</strong>.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4>Как у растений</h4>
+        <ul>
+          <li>Клеточная стенка</li>
+          <li>Неподвижность</li>
+          <li>Вакуоли</li>
+          <li>Рост всю жизнь</li>
+          <li>Размножение спорами</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Как у животных</h4>
+        <ul>
+          <li>Хитин в клеточной стенке</li>
+          <li>Запас — гликоген</li>
+          <li>Гетеротрофное питание</li>
+          <li>Есть лизосомы</li>
+          <li>Нет хлоропластов</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §8 -->
+<section class="section s8" id="s8">
+  <div class="section-header"><span class="icon">🌱</span> §8. Однодольные и двудольные</div>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Признак</th>
+          <th>Однодольные</th>
+          <th>Двудольные</th>
+        </tr>
+        <tr>
+          <td>Семядоли</td>
+          <td>1</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Корневая система</td>
+          <td>Мочковатая</td>
+          <td>Стержневая</td>
+        </tr>
+        <tr>
+          <td>Жилкование</td>
+          <td>Параллельное / дуговидное</td>
+          <td>Сетчатое</td>
+        </tr>
+        <tr>
+          <td>Околоцветник</td>
+          <td>Простой</td>
+          <td>Двойной</td>
+        </tr>
+        <tr>
+          <td>Части цветка</td>
+          <td>Кратны 3</td>
+          <td>Кратны 4 или 5</td>
+        </tr>
+        <tr>
+          <td>Камбий</td>
+          <td>Нет (почти всегда)</td>
+          <td>Есть</td>
+        </tr>
+      </table>
+    </div>
+    <div class="key">
+      <strong>Примеры:</strong> Однодольные — злаки, лилии, орхидеи. Двудольные — роза, дуб, горох, подсолнечник.
+    </div>
+  </div>
+</section>
+
+<!-- §9 -->
+<section class="section s9" id="s9">
+  <div class="section-header"><span class="icon">🦋</span> §9. Основные типы животных</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card">
+        <h4>Членистоногие</h4>
+        <p>Классы: ракообразные, паукообразные, насекомые</p>
+        <ul>
+          <li>Хитиновый наружный скелет</li>
+          <li>Членистые конечности</li>
+          <li>Тело из отделов (голова, грудь, брюшко)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Хордовые (позвоночные)</h4>
+        <p>Классы: рыбы, земноводные, пресмыкающиеся, птицы, млекопитающие</p>
+        <ul>
+          <li>Внутренний скелет (хорда → позвоночник)</li>
+          <li>Нервная трубка</li>
+          <li>Жаберные щели (на эмбриональной стадии)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §10–15 -->
+<section class="section s10" id="s10">
+  <div class="section-header"><span class="icon">🍎</span> §§ 10–15. Пищеварение, зубы, витамины</div>
+  <div class="section-body">
+
+    <h3>Желудок жвачных (корова)</h3>
+    <p>4 камеры: <strong>рубец → сетка → книжка → сычуг</strong><br>
+    В первых трёх живут микроорганизмы, расщепляющие клетчатку. Сычуг — настоящий желудок.</p>
+
+    <h3>Зубы человека</h3>
+    <ul>
+      <li>Части: коронка, шейка, корень</li>
+      <li>Слои: <strong>эмаль</strong> (самая твёрдая), дентин, пульпа</li>
+      <li>Типы: резцы (8), клыки (4), малые коренные (8), большие коренные (12) → всего 32</li>
+    </ul>
+
+    <h3>Отделы пищеварительной системы</h3>
+    <p>Ротовая полость → глотка → пищевод → желудок → <strong>тонкий кишечник</strong> (основное всасывание) → толстый кишечник</p>
+    <p>Железы: слюнные, печень (желчь), поджелудочная железа</p>
+
+    <h3>Витамины</h3>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Водорастворимые</h4>
+        <p>C, PP, группа B</p>
+      </div>
+      <div class="card">
+        <h4>Жирорастворимые</h4>
+        <p><strong>A, D, E, K</strong> («КЕДА»)</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Витамин</th>
+          <th>При недостатке</th>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>Цинга</td>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>Куриная слепота</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>Рахит</td>
+        </tr>
+        <tr>
+          <td>B₁</td>
+          <td>Бери-бери</td>
+        </tr>
+        <tr>
+          <td>PP</td>
+          <td>Пеллагра</td>
+        </tr>
+        <tr>
+          <td>B₁₂</td>
+          <td>Злокачественная анемия</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="key">
+      <strong>Термины:</strong><br>
+      Гиповитаминоз — недостаток · Авитаминоз — полное отсутствие · Гипервитаминоз — избыток
+    </div>
+
+    <div class="tip">
+      <strong>Гигиена питания:</strong> мыть руки, овощи и фрукты; не есть вздутые консервы и незнакомые грибы; хранить продукты в холоде; хорошо проваривать мясо и рыбу.
+    </div>
+  </div>
+</section>
+
+<section class="section s3" id="glossary">
+  <div class="section-header"><span class="icon">📖</span> Краткий глоссарий</div>
+  <div class="section-body">
+    <div class="grid-2">
+      <div class="card" id="g-bacteria"><h4>Бактерии</h4><p>Одноклеточные прокариоты: у них нет оформленного ядра и мембранных органоидов.</p></div>
+      <div class="card" id="g-monomer"><h4>Мономер</h4><p>Небольшая молекула, которая служит структурным звеном для построения полимера.</p></div>
+      <div class="card" id="g-polymer"><h4>Полимер</h4><p>Крупная молекула, состоящая из повторяющихся или связанных между собой мономеров.</p></div>
+      <div class="card" id="g-amino-acids"><h4>Аминокислоты</h4><p>Мономеры белков; в школьном курсе обычно рассматривают 20 основных аминокислот.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Шпаргалка для подготовки к СОЧ · Биология 8 класс · Параграфы 1–15<br>
+  Учебник: А.Р. Соловьёва, Б.Т. Ибраимова · Алматы «Атамұра»
+</footer>
+
+</div>
+
+<div class="quick-nav" aria-label="Навигация по странице">
+  <button type="button" id="previousSection" disabled>← Предыдущий раздел</button>
+  <button type="button" id="backToTop">↑ В начало</button>
+</div>
+<script>
+  const sections = [...document.querySelectorAll('.section[id]')];
+  const progressBar = document.getElementById('readingProgressBar');
+  const progressLabel = document.getElementById('progressLabel');
+  const previousButton = document.getElementById('previousSection');
+  let activeIndex = 0;
+
+  function updateReadingProgress() {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const percentage = maxScroll > 0 ? Math.min(100, (window.scrollY / maxScroll) * 100) : 100;
+    progressBar.style.width = percentage + '%';
+
+    let currentIndex = 0;
+    sections.forEach((section, index) => {
+      if (section.getBoundingClientRect().top <= 140) currentIndex = index;
+    });
+    activeIndex = currentIndex;
+    progressLabel.textContent = `Раздел ${currentIndex + 1} из ${sections.length}`;
+    previousButton.disabled = currentIndex === 0;
+  }
+
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+  window.addEventListener('resize', updateReadingProgress);
+  previousButton.addEventListener('click', () => {
+    if (activeIndex > 0) sections[activeIndex - 1].scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  updateReadingProgress();
+</script>
+</body>
+</html>

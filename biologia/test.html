@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>СОЧ · Биология 8 класс · Тест с выбором ответа (§§ 1–15)</title>
+<style>
+  :root {
+    --primary: #0f4c75;
+    --accent: #3282b8;
+    --success: #16a34a;
+    --error: #dc2626;
+    --bg: #f1f5f9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(160deg, #e0f2fe 0%, #f0f9ff 100%);
+    color: #1e293b;
+    line-height: 1.55;
+    padding: 18px;
+  }
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(15,76,117,0.12);
+    overflow: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 26px 30px;
+    text-align: center;
+  }
+  header h1 { font-size: 1.55rem; margin-bottom: 4px; }
+  header p { opacity: 0.92; font-size: 0.92rem; }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 14px;
+    font-size: 0.9rem;
+  }
+  .stats span { background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 20px; }
+  .content { padding: 26px 28px 40px; }
+  .question {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 22px;
+    transition: box-shadow 0.2s;
+  }
+  .question.correct { border-color: #86efac; background: #f0fdf4; }
+  .question.wrong { border-color: #fca5a5; background: #fef2f2; }
+  .q-head {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .q-num {
+    background: var(--primary);
+    color: white;
+    min-width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .q-text { font-weight: 600; font-size: 1.02rem; }
+  .q-type {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-top: 3px;
+  }
+  .options { margin: 12px 0 16px; }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 14px;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .option:hover { border-color: var(--accent); background: #f0f9ff; }
+  .option input { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .option label { cursor: pointer; flex: 1; font-size: 0.95rem; }
+  .btn-check {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 9px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-check:hover { background: #0a3a5c; }
+  .btn-check:disabled { opacity: 0.55; cursor: not-allowed; }
+  .feedback {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 0.92rem;
+  }
+  .feedback.visible { display: block; }
+  .feedback.ok { background: #dcfce7; border-left: 4px solid var(--success); }
+  .feedback.err { background: #fee2e2; border-left: 4px solid var(--error); }
+  .feedback h4 { margin-bottom: 6px; font-size: 0.95rem; }
+  .feedback.ok h4 { color: var(--success); }
+  .feedback.err h4 { color: var(--error); }
+  .explanation {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #94a3b8;
+    color: #334155;
+  }
+  footer {
+    text-align: center;
+    padding: 16px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.84rem;
+    border-top: 1px solid #e2e8f0;
+  }
+  .final-score {
+    display: none;
+    background: linear-gradient(135deg, #0f4c75, #3282b8);
+    color: white;
+    text-align: center;
+    padding: 28px 22px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+  .final-score.visible { display: block; }
+  .final-score h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .grade-box {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 12px 28px;
+    margin: 12px 0 18px;
+  }
+  .grade-box .grade-num {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .grade-box .grade-label {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-top: 4px;
+  }
+  .btn-restart {
+    background: white;
+    color: #0f4c75;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-restart:hover {
+    background: #e0f2fe;
+    transform: scale(1.03);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Тест с выбором ответа</h1>
+    <p>Биология 8 класс · Подготовка к СОЧ · Параграфы 1–15</p>
+    <div class="stats">
+      <span>Правильно: <strong id="correctCount">0</strong></span>
+      <span>Проверено: <strong id="checkedCount">0</strong> / 20</span>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="final-score" id="finalScore">
+      <h2>Результат: <span id="scoreText">0</span> из 20</h2>
+      <div class="grade-box">
+        <div class="grade-num" id="gradeNum">—</div>
+        <div class="grade-label">Оценка по 10-балльной шкале</div>
+      </div>
+      <p id="scoreComment" style="margin-bottom:16px;"></p>
+      <button class="btn-restart" onclick="restartTest()">↻ Пройти тест заново</button>
+    </div>
+
+    <!-- 1 -->
+    <div class="question" id="q1">
+      <div class="q-head">
+        <div class="q-num">1</div>
+        <div>
+          <div class="q-text">Организмы, клетки которых не имеют оформленного ядра, называются:</div>
+          <div class="q-type">Одиночный выбор · §1</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q1" value="a" id="q1a"><label for="q1a">Эукариоты</label></div>
+        <div class="option"><input type="radio" name="q1" value="b" id="q1b"><label for="q1b">Прокариоты</label></div>
+        <div class="option"><input type="radio" name="q1" value="c" id="q1c"><label for="q1c">Автотрофы</label></div>
+        <div class="option"><input type="radio" name="q1" value="d" id="q1d"><label for="q1d">Гетеротрофы</label></div>
+      </div>
+      <button class="btn-check" onclick="check(1)">Проверить</button>
+      <div class="feedback" id="fb1"></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question" id="q2">
+      <div class="q-head">
+        <div class="q-num">2</div>
+        <div>
+          <div class="q-text">Какие органоиды присутствуют только в растительных клетках?</div>
+          <div class="q-type">Одиночный выбор · §1</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q2" value="a" id="q2a"><label for="q2a">Митохондрии</label></div>
+        <div class="option"><input type="radio" name="q2" value="b" id="q2b"><label for="q2b">Рибосомы</label></div>
+        <div class="option"><input type="radio" name="q2" value="c" id="q2c"><label for="q2c">Пластиды</label></div>
+        <div class="option"><input type="radio" name="q2" value="d" id="q2d"><label for="q2d">Лизосомы</label></div>
+      </div>
+      <button class="btn-check" onclick="check(2)">Проверить</button>
+      <div class="feedback" id="fb2"></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question" id="q3">
+      <div class="q-head">
+        <div class="q-num">3</div>
+        <div>
+          <div class="q-text">Сколько основных типов тканей выделяют у животных?</div>
+          <div class="q-type">Одиночный выбор · §2</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q3" value="a" id="q3a"><label for="q3a">2</label></div>
+        <div class="option"><input type="radio" name="q3" value="b" id="q3b"><label for="q3b">4</label></div>
+        <div class="option"><input type="radio" name="q3" value="c" id="q3c"><label for="q3c">6</label></div>
+        <div class="option"><input type="radio" name="q3" value="d" id="q3d"><label for="q3d">8</label></div>
+      </div>
+      <button class="btn-check" onclick="check(3)">Проверить</button>
+      <div class="feedback" id="fb3"></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question" id="q4">
+      <div class="q-head">
+        <div class="q-num">4</div>
+        <div>
+          <div class="q-text">Какие ткани относятся к тканям растений? (выберите все верные)</div>
+          <div class="q-type">Множественный выбор · §2</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="checkbox" name="q4" value="a" id="q4a"><label for="q4a">Образовательная</label></div>
+        <div class="option"><input type="checkbox" name="q4" value="b" id="q4b"><label for="q4b">Мышечная</label></div>
+        <div class="option"><input type="checkbox" name="q4" value="c" id="q4c"><label for="q4c">Проводящая</label></div>
+        <div class="option"><input type="checkbox" name="q4" value="d" id="q4d"><label for="q4d">Нервная</label></div>
+        <div class="option"><input type="checkbox" name="q4" value="e" id="q4e"><label for="q4e">Покровная</label></div>
+      </div>
+      <button class="btn-check" onclick="check(4)">Проверить</button>
+      <div class="feedback" id="fb4"></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question" id="q5">
+      <div class="q-head">
+        <div class="q-num">5</div>
+        <div>
+          <div class="q-text">Полимеры, у которых мономеры одинаковы или строго чередуются, называются:</div>
+          <div class="q-type">Одиночный выбор · §3</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q5" value="a" id="q5a"><label for="q5a">Нерегулярными</label></div>
+        <div class="option"><input type="radio" name="q5" value="b" id="q5b"><label for="q5b">Регулярными</label></div>
+        <div class="option"><input type="radio" name="q5" value="c" id="q5c"><label for="q5c">Гетерополимерами</label></div>
+        <div class="option"><input type="radio" name="q5" value="d" id="q5d"><label for="q5d">Мономерами</label></div>
+      </div>
+      <button class="btn-check" onclick="check(5)">Проверить</button>
+      <div class="feedback" id="fb5"></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question" id="q6">
+      <div class="q-head">
+        <div class="q-num">6</div>
+        <div>
+          <div class="q-text">Какой углевод является основным запасным веществом у животных и грибов?</div>
+          <div class="q-type">Одиночный выбор · §4</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q6" value="a" id="q6a"><label for="q6a">Крахмал</label></div>
+        <div class="option"><input type="radio" name="q6" value="b" id="q6b"><label for="q6b">Целлюлоза</label></div>
+        <div class="option"><input type="radio" name="q6" value="c" id="q6c"><label for="q6c">Гликоген</label></div>
+        <div class="option"><input type="radio" name="q6" value="d" id="q6d"><label for="q6d">Хитин</label></div>
+      </div>
+      <button class="btn-check" onclick="check(6)">Проверить</button>
+      <div class="feedback" id="fb6"></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question" id="q7">
+      <div class="q-head">
+        <div class="q-num">7</div>
+        <div>
+          <div class="q-text">Сколько видов аминокислот входит в состав белков живых организмов?</div>
+          <div class="q-type">Одиночный выбор · §5</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q7" value="a" id="q7a"><label for="q7a">4</label></div>
+        <div class="option"><input type="radio" name="q7" value="b" id="q7b"><label for="q7b">10</label></div>
+        <div class="option"><input type="radio" name="q7" value="c" id="q7c"><label for="q7c">20</label></div>
+        <div class="option"><input type="radio" name="q7" value="d" id="q7d"><label for="q7d">64</label></div>
+      </div>
+      <button class="btn-check" onclick="check(7)">Проверить</button>
+      <div class="feedback" id="fb7"></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question" id="q8">
+      <div class="q-head">
+        <div class="q-num">8</div>
+        <div>
+          <div class="q-text">Какие функции выполняют белки? (выберите все верные)</div>
+          <div class="q-type">Множественный выбор · §5</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="checkbox" name="q8" value="a" id="q8a"><label for="q8a">Каталитическая (ферменты)</label></div>
+        <div class="option"><input type="checkbox" name="q8" value="b" id="q8b"><label for="q8b">Хранение наследственной информации</label></div>
+        <div class="option"><input type="checkbox" name="q8" value="c" id="q8c"><label for="q8c">Транспортная (гемоглобин)</label></div>
+        <div class="option"><input type="checkbox" name="q8" value="d" id="q8d"><label for="q8d">Защитная (антитела)</label></div>
+        <div class="option"><input type="checkbox" name="q8" value="e" id="q8e"><label for="q8e">Фотосинтез</label></div>
+      </div>
+      <button class="btn-check" onclick="check(8)">Проверить</button>
+      <div class="feedback" id="fb8"></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question" id="q9">
+      <div class="q-head">
+        <div class="q-num">9</div>
+        <div>
+          <div class="q-text">Какие растения относятся к низшим?</div>
+          <div class="q-type">Одиночный выбор · §6</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q9" value="a" id="q9a"><label for="q9a">Мхи</label></div>
+        <div class="option"><input type="radio" name="q9" value="b" id="q9b"><label for="q9b">Водоросли</label></div>
+        <div class="option"><input type="radio" name="q9" value="c" id="q9c"><label for="q9c">Папоротники</label></div>
+        <div class="option"><input type="radio" name="q9" value="d" id="q9d"><label for="q9d">Голосеменные</label></div>
+      </div>
+      <button class="btn-check" onclick="check(9)">Проверить</button>
+      <div class="feedback" id="fb9"></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question" id="q10">
+      <div class="q-head">
+        <div class="q-num">10</div>
+        <div>
+          <div class="q-text">Какой признак характерен для грибов (как у животных)?</div>
+          <div class="q-type">Одиночный выбор · §7</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q10" value="a" id="q10a"><label for="q10a">Наличие хлоропластов</label></div>
+        <div class="option"><input type="radio" name="q10" value="b" id="q10b"><label for="q10b">Запасной углевод — гликоген</label></div>
+        <div class="option"><input type="radio" name="q10" value="c" id="q10c"><label for="q10c">Клеточная стенка из целлюлозы</label></div>
+        <div class="option"><input type="radio" name="q10" value="d" id="q10d"><label for="q10d">Автотрофное питание</label></div>
+      </div>
+      <button class="btn-check" onclick="check(10)">Проверить</button>
+      <div class="feedback" id="fb10"></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="question" id="q11">
+      <div class="q-head">
+        <div class="q-num">11</div>
+        <div>
+          <div class="q-text">Какие признаки характерны для однодольных растений? (выберите все верные)</div>
+          <div class="q-type">Множественный выбор · §8</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="checkbox" name="q11" value="a" id="q11a"><label for="q11a">Одна семядоля</label></div>
+        <div class="option"><input type="checkbox" name="q11" value="b" id="q11b"><label for="q11b">Стержневая корневая система</label></div>
+        <div class="option"><input type="checkbox" name="q11" value="c" id="q11c"><label for="q11c">Параллельное или дуговидное жилкование</label></div>
+        <div class="option"><input type="checkbox" name="q11" value="d" id="q11d"><label for="q11d">Двойной околоцветник</label></div>
+        <div class="option"><input type="checkbox" name="q11" value="e" id="q11e"><label for="q11e">Мочковатая корневая система</label></div>
+      </div>
+      <button class="btn-check" onclick="check(11)">Проверить</button>
+      <div class="feedback" id="fb11"></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="question" id="q12">
+      <div class="q-head">
+        <div class="q-num">12</div>
+        <div>
+          <div class="q-text">К типу членистоногих относятся классы:</div>
+          <div class="q-type">Одиночный выбор · §9</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q12" value="a" id="q12a"><label for="q12a">Рыбы, земноводные, пресмыкающиеся</label></div>
+        <div class="option"><input type="radio" name="q12" value="b" id="q12b"><label for="q12b">Ракообразные, паукообразные, насекомые</label></div>
+        <div class="option"><input type="radio" name="q12" value="c" id="q12c"><label for="q12c">Млекопитающие, птицы, рептилии</label></div>
+        <div class="option"><input type="radio" name="q12" value="d" id="q12d"><label for="q12d">Кольчатые черви, моллюски</label></div>
+      </div>
+      <button class="btn-check" onclick="check(12)">Проверить</button>
+      <div class="feedback" id="fb12"></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="question" id="q13">
+      <div class="q-head">
+        <div class="q-num">13</div>
+        <div>
+          <div class="q-text">Сколько камер имеет желудок жвачных животных (коровы)?</div>
+          <div class="q-type">Одиночный выбор · §10</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q13" value="a" id="q13a"><label for="q13a">1</label></div>
+        <div class="option"><input type="radio" name="q13" value="b" id="q13b"><label for="q13b">2</label></div>
+        <div class="option"><input type="radio" name="q13" value="c" id="q13c"><label for="q13c">3</label></div>
+        <div class="option"><input type="radio" name="q13" value="d" id="q13d"><label for="q13d">4</label></div>
+      </div>
+      <button class="btn-check" onclick="check(13)">Проверить</button>
+      <div class="feedback" id="fb13"></div>
+    </div>
+
+    <!-- 14 -->
+    <div class="question" id="q14">
+      <div class="q-head">
+        <div class="q-num">14</div>
+        <div>
+          <div class="q-text">Самая твёрдая ткань зуба называется:</div>
+          <div class="q-type">Одиночный выбор · §11</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q14" value="a" id="q14a"><label for="q14a">Дентин</label></div>
+        <div class="option"><input type="radio" name="q14" value="b" id="q14b"><label for="q14b">Пульпа</label></div>
+        <div class="option"><input type="radio" name="q14" value="c" id="q14c"><label for="q14c">Эмаль</label></div>
+        <div class="option"><input type="radio" name="q14" value="d" id="q14d"><label for="q14d">Цемент</label></div>
+      </div>
+      <button class="btn-check" onclick="check(14)">Проверить</button>
+      <div class="feedback" id="fb14"></div>
+    </div>
+
+    <!-- 15 -->
+    <div class="question" id="q15">
+      <div class="q-head">
+        <div class="q-num">15</div>
+        <div>
+          <div class="q-text">В каком отделе пищеварительной системы человека происходит основное всасывание питательных веществ?</div>
+          <div class="q-type">Одиночный выбор · §12</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q15" value="a" id="q15a"><label for="q15a">Желудок</label></div>
+        <div class="option"><input type="radio" name="q15" value="b" id="q15b"><label for="q15b">Тонкий кишечник</label></div>
+        <div class="option"><input type="radio" name="q15" value="c" id="q15c"><label for="q15c">Толстый кишечник</label></div>
+        <div class="option"><input type="radio" name="q15" value="d" id="q15d"><label for="q15d">Пищевод</label></div>
+      </div>
+      <button class="btn-check" onclick="check(15)">Проверить</button>
+      <div class="feedback" id="fb15"></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="question" id="q16">
+      <div class="q-head">
+        <div class="q-num">16</div>
+        <div>
+          <div class="q-text">Какие меры помогают предотвратить пищевые отравления? (выберите все верные)</div>
+          <div class="q-type">Множественный выбор · §13</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="checkbox" name="q16" value="a" id="q16a"><label for="q16a">Мыть руки перед едой</label></div>
+        <div class="option"><input type="checkbox" name="q16" value="b" id="q16b"><label for="q16b">Употреблять вздутые консервы</label></div>
+        <div class="option"><input type="checkbox" name="q16" value="c" id="q16c"><label for="q16c">Хранить продукты в холодильнике</label></div>
+        <div class="option"><input type="checkbox" name="q16" value="d" id="q16d"><label for="q16d">Не есть незнакомые грибы</label></div>
+      </div>
+      <button class="btn-check" onclick="check(16)">Проверить</button>
+      <div class="feedback" id="fb16"></div>
+    </div>
+
+    <!-- 17 -->
+    <div class="question" id="q17">
+      <div class="q-head">
+        <div class="q-num">17</div>
+        <div>
+          <div class="q-text">Витамины, растворимые в жирах, — это:</div>
+          <div class="q-type">Одиночный выбор · §14</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q17" value="a" id="q17a"><label for="q17a">C, B₁, B₂, PP</label></div>
+        <div class="option"><input type="radio" name="q17" value="b" id="q17b"><label for="q17b">A, D, E, K</label></div>
+        <div class="option"><input type="radio" name="q17" value="c" id="q17c"><label for="q17c">B₆, B₁₂, C</label></div>
+        <div class="option"><input type="radio" name="q17" value="d" id="q17d"><label for="q17d">Только витамин C</label></div>
+      </div>
+      <button class="btn-check" onclick="check(17)">Проверить</button>
+      <div class="feedback" id="fb17"></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="question" id="q18">
+      <div class="q-head">
+        <div class="q-num">18</div>
+        <div>
+          <div class="q-text">Недостаток какого витамина вызывает цингу?</div>
+          <div class="q-type">Одиночный выбор · §15</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q18" value="a" id="q18a"><label for="q18a">Витамин A</label></div>
+        <div class="option"><input type="radio" name="q18" value="b" id="q18b"><label for="q18b">Витамин D</label></div>
+        <div class="option"><input type="radio" name="q18" value="c" id="q18c"><label for="q18c">Витамин C</label></div>
+        <div class="option"><input type="radio" name="q18" value="d" id="q18d"><label for="q18d">Витамин B₁</label></div>
+      </div>
+      <button class="btn-check" onclick="check(18)">Проверить</button>
+      <div class="feedback" id="fb18"></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="question" id="q19">
+      <div class="q-head">
+        <div class="q-num">19</div>
+        <div>
+          <div class="q-text">Недостаток витамина D у детей приводит к:</div>
+          <div class="q-type">Одиночный выбор · §15</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="radio" name="q19" value="a" id="q19a"><label for="q19a">Цинге</label></div>
+        <div class="option"><input type="radio" name="q19" value="b" id="q19b"><label for="q19b">Рахиту</label></div>
+        <div class="option"><input type="radio" name="q19" value="c" id="q19c"><label for="q19c">Куриной слепоте</label></div>
+        <div class="option"><input type="radio" name="q19" value="d" id="q19d"><label for="q19d">Бери-бери</label></div>
+      </div>
+      <button class="btn-check" onclick="check(19)">Проверить</button>
+      <div class="feedback" id="fb19"></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="question" id="q20">
+      <div class="q-head">
+        <div class="q-num">20</div>
+        <div>
+          <div class="q-text">Какие утверждения верны? (выберите все верные)</div>
+          <div class="q-type">Множественный выбор · §§1–15</div>
+        </div>
+      </div>
+      <div class="options">
+        <div class="option"><input type="checkbox" name="q20" value="a" id="q20a"><label for="q20a">Митохондрии есть у всех эукариот</label></div>
+        <div class="option"><input type="checkbox" name="q20" value="b" id="q20b"><label for="q20b">Грибы — это растения</label></div>
+        <div class="option"><input type="checkbox" name="q20" value="c" id="q20c"><label for="q20c">У однодольных обычно нет камбия</label></div>
+        <div class="option"><input type="checkbox" name="q20" value="d" id="q20d"><label for="q20d">Белки — нерегулярные биополимеры</label></div>
+      </div>
+      <button class="btn-check" onclick="check(20)">Проверить</button>
+      <div class="feedback" id="fb20"></div>
+    </div>
+
+  </div>
+
+  <footer>
+    Подготовка к СОЧ · Биология 8 класс · Параграфы 1–15<br>
+    Учебник: А.Р. Соловьёва, Б.Т. Ибраимова · Алматы «Атамұра» 2018
+  </footer>
+</div>
+
+<script>
+const answers = {
+  1: { correct: ['b'], explanation: 'Прокариоты — организмы без оформленного ядра (бактерии). Эукариоты имеют ядро, отделённое мембраной.' },
+  2: { correct: ['c'], explanation: 'Пластиды (хлоропласты, лейкопласты, хромопласты) характерны только для растительных клеток.' },
+  3: { correct: ['b'], explanation: 'У животных выделяют 4 основных типа тканей: эпителиальную, соединительную, мышечную и нервную.' },
+  4: { correct: ['a','c','e'], explanation: 'У растений 6 типов тканей: образовательная, покровная, основная, проводящая, механическая, выделительная. Мышечная и нервная — только у животных.' },
+  5: { correct: ['b'], explanation: 'Регулярные полимеры — те, у которых мономеры одинаковы или их последовательность строго повторяется (крахмал, целлюлоза).' },
+  6: { correct: ['c'], explanation: 'Гликоген — основной запасной углевод животных, человека и грибов. У растений — крахмал.' },
+  7: { correct: ['c'], explanation: 'В состав белков входят 20 видов аминокислот. Их разная последовательность создаёт огромное разнообразие белков.' },
+  8: { correct: ['a','c','d'], explanation: 'Белки выполняют каталитическую, транспортную, защитную, строительную, регуляторную и другие функции. Наследственную информацию хранят нуклеиновые кислоты, фотосинтез — хлоропласты.' },
+  9: { correct: ['b'], explanation: 'Низшие растения — водоросли. Их тело (таллом) не разделено на ткани и органы. Мхи, папоротники и голосеменные — высшие.' },
+  10: { correct: ['b'], explanation: 'У грибов, как у животных, запасной углевод — гликоген, клеточная стенка содержит хитин, питание гетеротрофное.' },
+  11: { correct: ['a','c','e'], explanation: 'Однодольные: 1 семядоля, мочковатый корень, параллельное/дуговидное жилкование, простой околоцветник. Стержневой корень и двойной околоцветник — у двудольных.' },
+  12: { correct: ['b'], explanation: 'Тип членистоногие включает классы: ракообразные, паукообразные и насекомые. У них хитиновый покров и членистые конечности.' },
+  13: { correct: ['d'], explanation: 'Желудок жвачных (коровы) состоит из 4 камер: рубец, сетка, книжка и сычуг. У человека желудок однокамерный.' },
+  14: { correct: ['c'], explanation: 'Эмаль — самая твёрдая ткань организма человека. Она покрывает коронку зуба и защищает его.' },
+  15: { correct: ['b'], explanation: 'Основное переваривание и всасывание питательных веществ происходит в тонком кишечнике через кишечные ворсинки.' },
+  16: { correct: ['a','c','d'], explanation: 'Важно мыть руки, хранить продукты в холоде и не есть сомнительные грибы/консервы. Вздутые консервы опасны (риск ботулизма).' },
+  17: { correct: ['b'], explanation: 'Жирорастворимые витамины — A, D, E, K (запоминается как «КЕДА»). Водорастворимые — C, PP и группа B.' },
+  18: { correct: ['c'], explanation: 'Цинга развивается при недостатке витамина C (аскорбиновой кислоты). Симптомы: кровоточивость дёсен, выпадение зубов.' },
+  19: { correct: ['b'], explanation: 'Недостаток витамина D у детей вызывает рахит — нарушение формирования костей (они становятся мягкими и деформируются).' },
+  20: { correct: ['a','c','d'], explanation: 'Митохондрии есть у всех эукариот. У однодольных нет камбия. Белки — нерегулярные биополимеры. Грибы — отдельное царство, а не растения.' }
+};
+
+let correctCount = 0;
+let checkedCount = 0;
+const total = 20;
+const checked = new Set();
+
+function check(num) {
+  if (checked.has(num)) return;
+
+  const q = document.getElementById('q' + num);
+  const fb = document.getElementById('fb' + num);
+  const inputs = q.querySelectorAll('input');
+  const selected = [];
+
+  inputs.forEach(inp => {
+    if (inp.checked) selected.push(inp.value);
+  });
+
+  if (selected.length === 0) {
+    alert('Выберите хотя бы один вариант ответа!');
+    return;
+  }
+
+  const ans = answers[num];
+  const isCorrect = arraysEqual(selected.sort(), ans.correct.sort());
+
+  checked.add(num);
+  checkedCount++;
+  document.getElementById('checkedCount').textContent = checkedCount;
+
+  if (isCorrect) {
+    correctCount++;
+    document.getElementById('correctCount').textContent = correctCount;
+    q.classList.add('correct');
+    fb.className = 'feedback visible ok';
+    fb.innerHTML = `<h4>✓ Верно!</h4><div class="explanation"><strong>Объяснение:</strong> ${ans.explanation}</div>`;
+  } else {
+    q.classList.add('wrong');
+    fb.className = 'feedback visible err';
+    const correctText = ans.correct.map(c => {
+      const label = q.querySelector(`label[for="q${num}${c}"]`);
+      return label ? label.textContent : c;
+    }).join(', ');
+    fb.innerHTML = `<h4>✗ Неверно</h4>
+      <p>Правильный ответ: <strong>${correctText}</strong></p>
+      <div class="explanation"><strong>Объяснение:</strong> ${ans.explanation}</div>`;
+  }
+
+  q.querySelector('.btn-check').disabled = true;
+  inputs.forEach(i => i.disabled = true);
+
+  if (checkedCount === total) {
+    showFinalScore();
+  }
+}
+
+function arraysEqual(a, b) {
+  return a.length === b.length && a.every((v, i) => v === b[i]);
+}
+
+function showFinalScore() {
+  const panel = document.getElementById('finalScore');
+  panel.classList.add('visible');
+  document.getElementById('scoreText').textContent = correctCount;
+
+  // Оценка по 10-балльной шкале
+  // 20 → 10, 18-19 → 9, 16-17 → 8, 14-15 → 7, 12-13 → 6,
+  // 10-11 → 5, 8-9 → 4, 6-7 → 3, 4-5 → 2, 0-3 → 1
+  let grade;
+  if (correctCount >= 20) grade = 10;
+  else if (correctCount >= 18) grade = 9;
+  else if (correctCount >= 16) grade = 8;
+  else if (correctCount >= 14) grade = 7;
+  else if (correctCount >= 12) grade = 6;
+  else if (correctCount >= 10) grade = 5;
+  else if (correctCount >= 8) grade = 4;
+  else if (correctCount >= 6) grade = 3;
+  else if (correctCount >= 4) grade = 2;
+  else grade = 1;
+
+  document.getElementById('gradeNum').textContent = grade;
+
+  let comment = '';
+  if (grade >= 9) comment = 'Отличный результат! Ты отлично готов(а) к СОЧ.';
+  else if (grade >= 7) comment = 'Хороший результат. Повтори темы, где были ошибки.';
+  else if (grade >= 5) comment = 'Средний результат. Рекомендуется ещё раз пройти §§ 1–15.';
+  else comment = 'Нужно серьёзно повторить материал. Начни с самых слабых параграфов.';
+  document.getElementById('scoreComment').textContent = comment;
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function restartTest() {
+  // Сброс счётчиков
+  correctCount = 0;
+  checkedCount = 0;
+  checked.clear();
+
+  document.getElementById('correctCount').textContent = '0';
+  document.getElementById('checkedCount').textContent = '0';
+  document.getElementById('finalScore').classList.remove('visible');
+  document.getElementById('gradeNum').textContent = '—';
+
+  // Сброс всех вопросов
+  for (let i = 1; i <= total; i++) {
+    const q = document.getElementById('q' + i);
+    q.classList.remove('correct', 'wrong');
+
+    const inputs = q.querySelectorAll('input');
+    inputs.forEach(inp => {
+      inp.checked = false;
+      inp.disabled = false;
+    });
+
+    const btn = q.querySelector('.btn-check');
+    btn.disabled = false;
+
+    const fb = document.getElementById('fb' + i);
+    fb.className = 'feedback';
+    fb.innerHTML = '';
+  }
+
+  // Прокрутка к началу
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

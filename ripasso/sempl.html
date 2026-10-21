@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгебра для Камиллы</title>
+    <style>
+        :root {
+            --bg-color: #eef4f8;
+            --card-bg: #ffffff;
+            --text-color: #243247;
+            --accent-primary: #0284c7;
+            --accent-secondary: #7c3aed;
+            --accent-green: #15803d;
+            --accent-orange: #c2410c;
+            --border-color: #d5e0ea;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff, #e8f3fb);
+            border-radius: 16px;
+            border: 2px solid var(--accent-secondary);
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.2);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            color: var(--accent-primary);
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #526277;
+        }
+
+        .section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(31, 54, 82, 0.08);
+        }
+
+        h2 {
+            color: var(--accent-secondary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--accent-primary);
+        }
+
+        .formula-box {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .step {
+            background: #f8fafc;
+            border: 1px dashed var(--border-color);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            font-weight: bold;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+        }
+
+        .exercise-box {
+            background: rgba(74, 222, 128, 0.05);
+            border: 2px solid var(--accent-green);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .expression {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: var(--accent-green);
+            background: #eaf4fb;
+            padding: 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .section {
+            transition: border-color 180ms ease, transform 180ms ease;
+        }
+
+        .section:hover {
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+        }
+
+        .formula-box,
+        .step {
+            line-height: 1.8;
+        }
+
+        .expression {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 22px 16px;
+                margin-bottom: 20px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 18px;
+                margin-bottom: 18px;
+            }
+
+            h2 {
+                font-size: 1.35rem;
+            }
+
+            .expression {
+                font-size: 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .section {
+                transition: none;
+            }
+
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Уроки Алгебры для Камиллы 🌟</h1>
+        <p>Упрощение выражений: теория, разбор примеров и задания для самостоятельной работы.</p>
+    </header>
+
+    <!-- TEORIA E FORMULE -->
+    <div class="section">
+        <h2>📚 Основные формулы и правила</h2>
+        <p>Привет, Камилла! Для успешного выполнения заданий по упрощению выражений тебе понадобятся следующие формулы сокращенного умножения и правила:</p>
+        
+        <div class="formula-box">
+            1. Квадрат суммы:<br>
+            (a + b)² = a² + 2ab + b²
+        </div>
+
+        <div class="formula-box">
+            2. Квадрат разности:<br>
+            (a - b)² = a² - 2ab + b²
+        </div>
+
+        <div class="formula-box">
+            3. Умножение многочленов:<br>
+            (x - a)(x + b) = x² + bx - ax - ab
+        </div>
+
+        <p><strong>Важные правила:</strong></p>
+        <ul>
+            <li>Всегда раскрывай скобки в первую очередь, используя формулы или фонтанчик (распределительное свойство).</li>
+            <li>Будь очень аккуратна со знаками «минус» перед скобками: они меняют все знаки внутри скобки на противоположные!</li>
+            <li>В конце приведи подобные слагаемые (складывай или вычитай коэффициенты при одинаковых степенях буквы <em>a</em>).</li>
+        </ul>
+    </div>
+
+    <!-- ESERCIZIO 9.1 (GUIDATO) -->
+    <div class="section">
+        <h2>✏️ Задание 9. Упростите выражения</h2>
+        <h3>Пример 9.1 (Пошаговое решение)</h3>
+        <p class="expression">(a + 7)² + (a - 2)(a + 5) - 7a</p>
+        
+        <div class="step">
+            <div class="step-number">Шаг 1: Раскрываем квадрат суммы для первой части</div>
+            Применяем формулу (a + 7)² = a² + 14a + 49.<br>
+            Выражение принимает вид: <code>a² + 14a + 49 + (a - 2)(a + 5) - 7a</code>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 2: Умножаем две скобки друг на друга</div>
+            (a - 2)(a + 5) = a² + 5a - 2a - 10 = a² + 3a - 10.<br>
+            Теперь подставляем это в общее выражение: <code>a² + 14a + 49 + a² + 3a - 10 - 7a</code>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 3: Приводим подобные слагаемые</div>
+            <ul>
+                <li>Члены с a²: a² + a² = 2a²</li>
+                <li>Члены с a: 14a + 3a - 7a = 10a</li>
+                <li>Числа (свободные члены): 49 - 10 = 39</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <strong>Итоговый ответ для 9.1:</strong> <span class="expression">2a² + 10a + 39</span>
+        </div>
+    </div>
+
+    <!-- ESERCIZIO 9.4 (DA SOLA) -->
+    <div class="section">
+        <h3>🎯 Задание 9.4 (Твоя очередь!)</h3>
+        <p>Попробуй решить сама, используя образец выше:</p>
+        <p class="expression">8 - (a + 5)² - (a - 4)(a + 7) + 16a</p>
+        <p><em>Подсказка:</em> Не забудь, что минус перед первой скобкой <code>-(a + 5)²</code> поменяет знак каждого слагаемого внутри после возведения в квадрат!</p>
+    </div>
+
+    <!-- ESERCIZIO 10.1 (GUIDATO) -->
+    <div class="section">
+        <h2>✏️ Задание 10. Упростите выражения</h2>
+        <h3>Пример 10.1 (Пошаговое решение)</h3>
+        <p class="expression">4(a - 1)² + (a - 2)(6 - a) - 13</p>
+
+        <div class="step">
+            <div class="step-number">Шаг 1: Возводим в квадрат и умножаем на коэффициент 4</div>
+            Сначала (a - 1)² = a² - 2a + 1.<br>
+            Умножаем на 4: 4(a² - 2a + 1) = 4a² - 8a + 4.
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 2: Умножаем вторую пару скобок</div>
+            (a - 2)(6 - a) = 6a - a² - 12 + 2a = -a² + 8a - 12.
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 3: Складываем всё вместе и приводим подобные</div>
+            <code>4a² - 8a + 4 - a² + 8a - 12 - 13</code><br>
+            <ul>
+                <li>Члены с a²: 4a² - a² = 3a²</li>
+                <li>Члены с a: -8a + 8a = 0 (они взаимно уничтожаются!)</li>
+                <li>Числа: 4 - 12 - 13 = -21</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <strong>Итоговый ответ для 10.1:</strong> <span class="expression">3a² - 21</span>
+        </div>
+    </div>
+
+    <!-- ESERCIZIO 10.3 (DA SOLA) -->
+    <div class="section">
+        <h3>🎯 Задание 10.3 (Твоя очередь!)</h3>
+        <p>Примени полученные навыки здесь:</p>
+        <p class="expression">- (a - 5)² + (3a - 2)(7 - a) - 18a + 6</p>
+        <p><em>Подсказка:</em> Будь внимательна с первым минусом перед квадратом и аккуратно перемножь многочлены во второй скобке.</p>
+    </div>
+
+    <!-- ESERCIZIO 11.1 (GUIDATO) -->
+    <div class="section">
+        <h2>✏️ Задание 11. Упростите выражения</h2>
+        <h3>Пример 11.1 (Пошаговое решение)</h3>
+        <p class="expression">7(2a + 1)² - (3a - 2)(6 - 2a) - 3a²</p>
+
+        <div class="step">
+            <div class="step-number">Шаг 1: Возводим в квадрат выражение с коэффициентом</div>
+            (2a + 1)² = (2a)² + 2·(2a)·1 + 1² = 4a² + 4a + 1.<br>
+            Умножаем на 7: <code>7(4a² + 4a + 1) = 28a² + 28a + 7</code>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 2: Раскрываем скобки умножения со знаком минус перед ними</div>
+            (3a - 2)(6 - 2a) = 18a - 6a² - 12 + 4a = -6a² + 22a - 12.<br>
+            Учитываем минус перед ними: <code>-(-6a² + 22a - 12) = 6a² - 22a + 12</code>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Шаг 3: Собираем всё в единую строку и упрощаем</div>
+            <code>28a² + 28a + 7 + 6a² - 22a + 12 - 3a²</code><br>
+            <ul>
+                <li>Члены с a²: 28a² + 6a² - 3a² = 31a²</li>
+                <li>Члены с a: 28a - 22a = 6a</li>
+                <li>Числа: 7 + 12 = 19</li>
+            </ul>
+        </div>
+
+        <div class="exercise-box">
+            <strong>Итоговый ответ для 11.1:</strong> <span class="expression">31a² + 6a + 19</span>
+        </div>
+    </div>
+
+    <!-- ESERCIZIO 11.2 (DA SOLA) -->
+    <div class="section">
+        <h3>🎯 Задание 11.2 (Твоя очередь!)</h3>
+        <p>И последнее упражнение для закрепления материала:</p>
+        <p class="expression">- (3a - 1)² - (4 - 5a)(7 - 2a) - 5a²</p>
+        <p><em>Подсказка:</em> Шаг за шагом раскрой скобки, следи за знаками и в самом конце сложи подобные слагаемые.</p>
+    </div>
+
+    <footer>
+        <p>Удачи в решении, Камилла! Ты справишься! ✨</p>
+    </footer>
+</div>
+
+</body>
+</html>

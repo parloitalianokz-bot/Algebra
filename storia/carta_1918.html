@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как Первая мировая война изменила карту мира</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Montserrat', sans-serif;
+background-image: radial-gradient(#f5c96a 1px, transparent 1px);
+background-size: 24px 24px;
+}
+.serif-title { font-family: 'Playfair Display', serif; }
+.hero-bg {
+background: radial-gradient(circle at 15% 20%, rgba(251, 191, 36, .2), transparent 25%),
+radial-gradient(circle at 85% 75%, rgba(45, 212, 191, .16), transparent 30%),
+linear-gradient(135deg, #172b3a 0%, #1d4650 55%, #176b6b 100%);
+}
+header { isolation: isolate; }
+header::before, header::after {
+content: '✦';
+position: absolute;
+color: rgba(255, 255, 255, .18);
+font-size: 5rem;
+line-height: 1;
+z-index: -1;
+}
+header::before { top: 18%; left: 8%; transform: rotate(-15deg); }
+header::after { right: 9%; bottom: 15%; font-size: 7rem; transform: rotate(12deg); }
+.card-hover {
+transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+transform: translateY(-7px) rotate(-1deg);
+box-shadow: 0 20px 28px -8px rgba(23, 43, 58, .22);
+}
+main > section:first-child {
+background: linear-gradient(135deg, #fff 0%, #fffaf0 100%);
+}
+main > section:nth-of-type(2) .grid > div {
+border-radius: 1.25rem;
+box-shadow: 0 8px 20px rgba(23, 43, 58, .08);
+}
+main > section:nth-of-type(2) .grid > div:nth-child(1) { background: #fff7f8; }
+main > section:nth-of-type(2) .grid > div:nth-child(2) { background: #fffbeb; }
+main > section:nth-of-type(2) .grid > div:nth-child(3) { background: #f0fdf4; }
+main > section:nth-of-type(2) .grid > div:nth-child(4) { background: #f0fdfa; }
+main > section:nth-of-type(3) {
+background: linear-gradient(135deg, #173848, #176b6b);
+}
+main > section:nth-of-type(3) h2 { color: white; }
+main > section:nth-of-type(3) > div:first-child p { color: #ccfbf1; }
+main > section:nth-of-type(3) .grid > div {
+border: 2px solid rgba(255, 255, 255, .6);
+transition: transform .25s ease;
+}
+main > section:nth-of-type(3) .grid > div:hover { transform: translateY(-5px); }
+main > section:nth-of-type(4) .grid > div:first-child {
+background: linear-gradient(145deg, #fff7ed, #fffbeb);
+border-color: #fed7aa;
+}
+main > section:nth-of-type(4) .grid > div:last-child {
+background: linear-gradient(145deg, #ecfeff, #f0fdfa);
+border-color: #99f6e4;
+}
+main > section:nth-of-type(4) h3 { color: #173848; }
+footer { background: linear-gradient(110deg, #172b3a, #1d4650); }
+@media (prefers-reduced-motion: reduce) {
+.card-hover, main > section:nth-of-type(3) .grid > div { transition: none; }
+}
+</style>
+</head>
+<body class="bg-amber-50 text-slate-800 antialiased">
+<!-- Header / Hero Section -->
+<header class="hero-bg text-white py-16 px-6 text-center relative overflow-hidden shadow-2xl">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+<div class="max-w-4xl mx-auto relative z-10">
+<span class="bg-amber-500/30 text-amber-300 text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full border border-amber-400/40 inline-block mb-4">Специально для Камиллы 🌍</span>
+<h1 class="serif-title text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Как Первая мировая война изменила карту мира</h1>
+<p class="text-lg md:text-xl text-teal-100 max-w-2xl mx-auto font-light">
+Глобальный конфликт 1914–1918 годов стер с карты могущественные империи и подарил рождение новым государствам.
+</p>
+</div>
+</header>
+<!-- Main Container -->
+<main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+<!-- Introduction Quote -->
+<section class="bg-white rounded-3xl p-8 md:p-10 shadow-lg border border-amber-200 text-center max-w-3xl mx-auto">
+<p class="text-xl italic text-slate-700 serif-title">
+«Мир рухнул в августе 1914 года, и старый порядок уже никогда не смог возродиться в прежнем виде...»
+</p>
+<div class="mt-4 text-sm font-semibold text-teal-700 uppercase tracking-wider">Великий перелом истории</div>
+</section>
+<!-- Section 1: The Four Fallen Empires -->
+<section>
+<div class="text-center mb-10">
+<h2 class="serif-title text-3xl md:text-4xl font-bold text-slate-900">Падение четырех великих империй</h2>
+<p class="text-slate-600 mt-2">Война уничтожила старые многонациональные гиганты Европы и Ближнего Востока.</p>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Russian Empire -->
+<div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-rose-600 card-hover">
+<div class="text-3xl mb-3">🇷🇺</div>
+<h3 class="font-bold text-lg mb-2 text-slate-900">Российская империя</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+Революция 1917 года и Брестский мир привели к падению монархии. На ее руинах образовался СССР, а западные территории обрели независимость.
+</p>
+</div>
+<!-- Austro-Hungarian Empire -->
+<div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-amber-500 card-hover">
+<div class="text-3xl mb-3">🇦🇹</div>
+<h3 class="font-bold text-lg mb-2 text-slate-900">Австро-Венгрия</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+Лоскутная империя Габсбургов полностью распалась на несколько суверенных и независимых национальных государств.
+</p>
+</div>
+<!-- Ottoman Empire -->
+<div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-emerald-600 card-hover">
+<div class="text-3xl mb-3">🇹🇷</div>
+<h3 class="font-bold text-lg mb-2 text-slate-900">Османская империя</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+Потеряла контроль над Ближним Востоком, земли которого перешли под мандатное управление Англии и Франции. Возникла современная Турция.
+</p>
+</div>
+<!-- German Empire -->
+<div class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-teal-700 card-hover">
+<div class="text-3xl mb-3">🇩🇪</div>
+<h3 class="font-bold text-lg mb-2 text-slate-900">Германская империя</h3>
+<p class="text-sm text-slate-600 leading-relaxed">
+По Версальскому договору потеряла колонии и значительные европейские территории в пользу соседей, что изменило баланс сил в Европе.
+</p>
+</div>
+</div>
+</section>
+<!-- Section 2: New States on the Map -->
+<section class="bg-slate-800 text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+<div class="relative z-10 grid min-w-0 grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div class="min-w-0">
+<span class="text-amber-400 text-xs font-bold uppercase tracking-widest">Рождение новых наций</span>
+<h2 class="serif-title text-3xl md:text-4xl font-bold mt-2 mb-4">Карта Европы заново перекроена</h2>
+<p class="text-teal-100 leading-relaxed mb-6">
+Принцип национальной самоидентификации провозгласил появление новых государств на карте, о которых раньше не слышали или чья государственность была прервана столетия назад.
+</p>
+<ul class="space-y-3 text-teal-50">
+<li class="flex items-start gap-2"><span class="shrink-0" aria-hidden="true">✨</span><span class="min-w-0"> <strong>Польша</strong> восстановила независимость после 123 лет разделов.</span></li>
+<li class="flex items-start gap-2"><span class="shrink-0" aria-hidden="true">✨</span><span class="min-w-0"><strong>Чехословакия</strong> и <strong>Югославия</strong> объединили новые народы.</span></li>
+<li class="flex items-start gap-2"><span class="shrink-0" aria-hidden="true">✨</span><span class="min-w-0"><strong>Прибалтика</strong> (Эстония, Латвия, Литва) обрела свободу.</span></li>
+</ul>
+</div>
+<div class="min-w-0 bg-white/10 p-6 rounded-2xl backdrop-blur-md border border-white/20">
+<h3 class="font-bold text-xl mb-4 text-amber-300">Интересный факт для Камиллы:</h3>
+<p class="text-sm text-teal-50 leading-relaxed">
+Сравнение карт 1914 и 1923 годов напоминает лоскутное одеяло, которое перешили заново. Сотни тысяч километров границ переместились, заставив миллионы людей переосмыслить свою национальную принадлежность.
+</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Global Shift Outside Europe -->
+<section>
+<div class="text-center mb-10">
+<h2 class="serif-title text-3xl md:text-4xl font-bold text-slate-900">Глобальные изменения вне Европы</h2>
+<p class="text-slate-600 mt-2">Эхо войны докатилось до Ближнего Востока и Нового Света.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="bg-white p-8 rounded-3xl shadow-md border border-amber-200">
+<div class="text-3xl mb-4">🏜️</div>
+<h3 class="serif-title text-2xl font-bold text-slate-900 mb-3">Ближний Восток и мандаты</h3>
+<p class="text-slate-600 leading-relaxed">
+Раздел османских владений привел к созданию новых границ в пустынях и долинах (Ирак, Сирия, Ливан, Иордания, Палестина), которые во многом определяют современные конфликты в регионе и по сей день.
+</p>
+</div>
+<div class="bg-white p-8 rounded-3xl shadow-md border border-amber-200">
+<div class="text-3xl mb-4">🗽</div>
+<h3 class="serif-title text-2xl font-bold text-slate-900 mb-3">Возвышение США</h3>
+<p class="text-slate-600 leading-relaxed">
+Ослабление европейских держав выдвинуло Соединенные Штаты Америки на роль ключевого глобального финансового и политического игрока мировой арены.
+</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm border-t border-slate-800 mt-20">
+<p>Создано с вдохновением для изучения истории • Карта мира после Первой мировой войны</p>
+</footer>
+</body>
+</html>

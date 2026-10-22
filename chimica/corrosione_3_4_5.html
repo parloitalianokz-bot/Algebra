@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Химия: Коррозия металлов (8 класс)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #eaf6ff, #f7fbff);
+            color: #263746;
+            line-height: 1.65;
+            margin: 0;
+            padding: 28px 18px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 34px;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(31, 73, 105, 0.12);
+        }
+        h1 {
+            color: #20384d;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 14px;
+            line-height: 1.3;
+        }
+        h2 {
+            color: #2476a8;
+            margin-top: 34px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 0;
+        }
+        button:focus-visible {
+            outline: 3px solid #1d6fa5;
+            outline-offset: 3px;
+        }
+        .summary-box {
+            background: linear-gradient(120deg, #e8f4f8, #f4fbff);
+            border-left: 5px solid #3498db;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #c0392b;
+        }
+        .exercise {
+            background-color: #fbfdff;
+            border: 1px solid #e1eaf0;
+            border-left: 4px solid #69a9d3;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(31, 73, 105, 0.045);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .exercise:hover {
+            box-shadow: 0 6px 18px rgba(31, 73, 105, 0.09);
+            transform: translateY(-2px);
+        }
+        .hint-btn {
+            background-color: #d9850b;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .hint-btn:hover {
+            background-color: #b96d08;
+            transform: translateY(-1px);
+        }
+        .hint-text {
+            display: none;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .solution-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            display: block;
+            margin: 30px auto 10px auto;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        .solution-btn:hover {
+            background-color: #219150;
+        }
+        .solution-text {
+            display: none;
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 1.05em;
+        }
+        .password-prompt {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        /* Stile per le provette dell'Esercizio 5 */
+        .test-tubes {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 0.85em;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .test-tube {
+            width: 55px;
+            height: 130px;
+            border: 2px solid #555;
+            border-top: none;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            background: #fdfdfd;
+            overflow: hidden;
+        }
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .nail {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 60px;
+            background: #7f8c8d;
+            border-radius: 2px;
+        }
+        .label { margin-top: 8px; font-weight: bold; font-size: 1.1em; }
+        
+        .water { background-color: #d6eaf8; height: 75%; }
+        .oil { background-color: #f1c40f; height: 20%; position: absolute; top: 0; width: 100%; }
+        .salt { background-color: #85c1e9; height: 75%; }
+        .air { background-color: transparent; height: 100%; }
+        .cacl2 { background-color: #d6eaf8; height: 30%; }
+
+        /* Stile per l'immagine della tabella */
+        .table-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .test-tubes {
+            flex-wrap: wrap;
+            gap: 18px 10px;
+        }
+        .test-tubes > div {
+            flex: 1 1 115px;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+            .container {
+                padding: 22px 18px;
+                border-radius: 14px;
+            }
+            h1 {
+                font-size: 1.65em;
+            }
+            .exercise {
+                padding: 18px 15px;
+            }
+            .test-tubes {
+                justify-content: center;
+                padding: 14px 8px;
+                gap: 18px 6px;
+            }
+            .test-tubes > div {
+                flex: 1 1 42%;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🧪 Химия: Коррозия металлов</h1>
+    <p style="text-align: center; color: #7f8c8d;">Конспект и домашнее задание для Камиллы (8 класс)</p>
+
+    <h2>📘 Краткий конспект § 14</h2>
+    <div class="summary-box">
+        <p><strong>Коррозия</strong> — это разрушение металлов и их сплавов под воздействием окружающей среды.</p>
+        <p>Различают два вида коррозии:</p>
+        <ul>
+            <li><strong>Химическая (газовая):</strong> происходит в <span class="highlight">отсутствие влаги</span>. Металл разрушается под действием газов (кислорода) при высоких температурах.</li>
+            <li><strong>Электрохимическая:</strong> происходит в <span class="highlight">растворах</span> (кислоты, щелочи, соли) или во влажном воздухе. Это главный "враг" металлов в быту.</li>
+        </ul>
+        <p>🛡️ <strong>Способы защиты (Рис. 30):</strong> металлические покрытия (цинкование, хромирование), неметаллические покрытия (краски, лаки, пластик), использование ингибиторов (замедлителей).</p>
+    </div>
+
+    <h2>✏️ Домашнее задание</h2>
+    
+    <div class="exercise">
+        <h3>Упражнение 3 (стр. 51)</h3>
+        <p><em>Что такое электрохимическая коррозия?</em></p>
+        <button class="hint-btn" onclick="toggleHint('hint3')">💡 Подсказка</button>
+        <div id="hint3" class="hint-text">
+            Найди ответ в тексте конспекта выше (в синей рамочке). Обрати внимание, в какой среде она происходит (растворы) и от чего зависит её скорость.
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>Упражнение 4 (стр. 51)</h3>
+        <p><em>Кусочки металлов меди, цинка, магния и железа опустили в раствор соляной кислоты. В какой пробирке находится каждый из металлов? Расположите их по убыванию активности.</em></p>
+        <p style="font-size: 0.9em; color: #555;">(На рисунке в учебнике: А - мало пузырьков, Б - нет пузырьков, В - почти нет, Г - много пузырьков).</p>
+        
+        <button class="hint-btn" onclick="toggleHint('hint4')">💡 Подсказка и Таблица активности</button>
+        <div id="hint4" class="hint-text">
+            <p><strong>Важно:</strong> Для этого задания <strong>НЕ нужна таблица Менделеева!</strong> Нужна <strong>Таблица активности металлов (Ряд напряжений)</strong>.</p>
+            
+            <!-- Immagine della tabella tramite il link fornito -->
+            <img src="https://persona-stend.ru/assets/image/stend-elektrohimicheskiy-ryad-napryazheniy-metallov.jpg" alt="Электрохимический ряд напряжений металлов" class="table-image">
+
+            <p>Правила очень простые:</p>
+            <ol>
+                <li>Чем <strong>левее</strong> стоит металл в этом ряду, тем он <strong>активнее</strong>. Значит, он реагирует с кислотой быстрее и выделяет <strong>больше пузырьков</strong> газа.</li>
+                <li>Металлы, которые стоят в ряду <strong>после водорода (H)</strong>, с кислотами не реагируют вообще (пузырьков не будет).</li>
+            </ol>
+            <p>Посмотри на пробирки:</p>
+            <ul>
+                <li>Где пузырьков больше всего? Значит, там самый активный металл из списка (он левее всех в таблице).</li>
+                <li>Где пузырьков нет совсем? Значит, там металл, который стоит после водорода (это медь).</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="exercise">
+        <h3>Упражнение 5 (стр. 52)</h3>
+        <p><em>В какой пробирке гвоздь быстрее подвергается коррозии? Почему?</em></p>
+        
+        <div class="test-tubes">
+            <div>
+                <div class="test-tube">
+                    <div class="water"></div>
+                    <div class="oil"></div>
+                    <div class="nail"></div>
+                </div>
+                <div class="label">А</div>
+                <div>вода + раст. масло</div>
+            </div>
+            <div>
+                <div class="test-tube">
+                    <div class="salt"></div>
+                    <div class="nail"></div>
+                </div>
+                <div class="label">Б</div>
+                <div>раствор соли</div>
+            </div>
+            <div>
+                <div class="test-tube">
+                    <div class="air"></div>
+                    <div class="nail"></div>
+                </div>
+                <div class="label">В</div>
+                <div>воздух</div>
+            </div>
+            <div>
+                <div class="test-tube">
+                    <div class="cacl2"></div>
+                    <div class="nail"></div>
+                </div>
+                <div class="label">Г</div>
+                <div>воздух + хлорид кальция</div>
+            </div>
+        </div>
+
+        <button class="hint-btn" onclick="toggleHint('hint5')">💡 Подсказка (Как это понять?)</button>
+        <div id="hint5" class="hint-text">
+            <p>Чтобы понять, где ржавчина появится быстрее, нужно вспомнить условия <strong>электрохимической коррозии</strong>. Для её протекания нужны <strong>ДВА обязательных ингредиента одновременно</strong>:</p>
+            <ol>
+                <li><strong>Вода</strong> (лучше с солью — это отличный электролит, проводящий ток).</li>
+                <li><strong>Кислород</strong> (воздух).</li>
+            </ol>
+            <p>Если нет хотя бы одного — процесс почти останавливается. Давай посмотрим на каждую пробирку:</p>
+            <ul>
+                <li><strong>А (Вода + масло):</strong> Вода есть, но масло создает пленку и <em>блокирует доступ кислорода</em>. Нет кислорода — нет быстрой коррозии.</li>
+                <li><strong>В (Воздух):</strong> Кислорода много, но <em>нет воды</em> (жидкой среды). В сухом воздухе железо ржавеет очень медленно.</li>
+                <li><strong>Г (Воздух + хлорид кальция):</strong> Хлорид кальция (CaCl₂) — это вещество, которое <em>жадно впитывает влагу</em> (его используют как осушитель). Он «забирает» воду, поэтому там сухо. Нет воды — нет коррозии.</li>
+                <li><strong>Б (Раствор соли):</strong> Здесь есть <strong>вода</strong> (с солью, что ускоряет процесс) и есть <strong>кислород</strong> (в воздухе и растворен в воде). Идеальные условия!</li>
+            </ul>
+            <p>Сделай вывод: в какой пробирке есть и вода, и воздух?</p>
+        </div>
+    </div>
+
+    <button class="solution-btn" onclick="askPassword()">🔓 Показать решения</button>
+    
+    <div id="password-prompt" class="password-prompt">
+        Введите пароль, чтобы увидеть ответы:
+    </div>
+
+    <div id="solution-box" class="solution-text">
+        <h3>✅ Ответы и решения:</h3>
+        
+        <p><strong>Задание 3:</strong> <em>Электрохимическая коррозия</em> — это разрушение металлов в растворах кислот, щелочей и солей. На её скорость влияют природа примесей и степень однородности поверхности металла.</p>
+        
+        <p><strong>Задание 4:</strong> 
+            <br>• <strong>Пробирка Б</strong> — Медь (Cu). Она стоит в ряду напряжений после водорода и не вытесняет его из кислот (нет пузырьков).
+            <br>• <strong>Пробирка В</strong> — Железо (Fe). Реагирует медленно, пузырьки идут слабо.
+            <br>• <strong>Пробирка А</strong> — Цинк (Zn). Реагирует активнее железа.
+            <br>• <strong>Пробирка Г</strong> — Магний (Mg). Самый активный из списка, реакция бурная.
+            <br><em>По убыванию активности:</em> <strong>Магний (Г) > Цинк (А) > Железо (В) > Медь (Б)</strong>.</p>
+        
+        <p><strong>Задание 5:</strong> 
+            <br>Быстрее всего коррозия произойдет в пробирке <strong>Б (раствор соли)</strong>. 
+            <br><em>Почему:</em> Там есть вода (электролит, ускоряющий процесс) и доступ кислорода. В пробирке А масло блокирует кислород, в В нет жидкой воды, а в Г хлорид кальция впитывает влагу (нет воды).</p>
+    </div>
+</div>
+
+<script>
+    function toggleHint(id) {
+        var hint = document.getElementById(id);
+        if (hint.style.display === "block") {
+            hint.style.display = "none";
+        } else {
+            hint.style.display = "block";
+        }
+    }
+
+    function askPassword() {
+        var password = prompt("Введите пароль для просмотра решений:");
+        if (password === "666") {
+            document.getElementById("solution-box").style.display = "block";
+            document.getElementById("password-prompt").style.display = "none";
+        } else {
+            var errorMsg = document.getElementById("password-prompt");
+            errorMsg.style.display = "block";
+            errorMsg.innerHTML = "❌ Неверный пароль! <br><strong>Спроси у папы.</strong>";
+        }
+    }
+</script>
+
+</body>
+  </html>

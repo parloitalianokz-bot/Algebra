@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгебра: Уравнения и Системы</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --bg: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border: #E5E7EB;
+            --warning: #F59E0B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 920px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: -12px 0 28px;
+        }
+
+        .page-nav a {
+            padding: 8px 14px;
+            color: var(--primary);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .page-nav a:hover {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 30px 0 15px 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 24px rgba(31, 41, 55, 0.07);
+            border-left: 5px solid var(--primary);
+        }
+
+        .theory-box {
+            border-left-color: var(--secondary);
+        }
+
+        .theory-box h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .math-text {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Оформление пошагового решения */
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #F8FAFC;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .step-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Оформление упражнений */
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .exercise-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .exercise-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .ex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .ex-number {
+            background: var(--primary-light);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .equation {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:hover {
+            background-color: #4338CA;
+        }
+
+        .btn:focus-visible,
+        .page-nav a:focus-visible {
+            outline: 3px solid var(--warning);
+            outline-offset: 3px;
+        }
+
+        .hint-content {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #FFFBEB;
+            border-left: 4px solid var(--warning);
+            border-radius: 4px;
+            color: #92400E;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .hint-content.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title,
+        .page-nav a {
+            scroll-margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 22px 16px;
+                margin-bottom: 24px;
+            }
+
+            header h1 {
+                font-size: 1.65rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .equation {
+                font-size: 1rem;
+                overflow-wrap: anywhere;
+            }
+
+            .exercise-item {
+                padding: 16px;
+            }
+        }
+
+        /* Адаптивная сетка упражнений */
+        @media (min-width: 768px) {
+            .exercise-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .exercise-item.full-width {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Алгебра: Уравнения</h1>
+            <p>Разбор методов решения и практика</p>
+        </header>
+
+        <nav class="page-nav" aria-label="Навигация по странице">
+            <a href="#theory">Теория</a>
+            <a href="#example">Пример решения</a>
+            <a href="#practice">Практика</a>
+        </nav>
+
+        <!-- Теория -->
+        <section class="card theory-box" id="theory">
+            <h3>📚 Теоретические основы</h3>
+            <p>Для решения уравнений из этого раздела мы будем использовать следующие алгебраические свойства:</p>
+            <ul>
+                <li><strong>Раскрытие скобок:</strong> Используем формулы квадрата суммы <span class="math-text">(a ± b)² = a² ± 2ab + b²</span> и правила умножения многочленов (фонтанчиком).</li>
+                <li><strong>Приведение подобных слагаемых:</strong> Переносим все члены с неизвестным <span class="math-text">x</span> в левую часть, а числа — в правую, меняя знак при переносе через знак равенства.</li>
+                <li><strong>Разность квадратов:</strong> <span class="math-text">a² - b² = (a - b)(a + b)</span>. Если уравнение имеет вид <span class="math-text">A² - B² = 0</span>, оно раскладывается как <span class="math-text">(A - B)(A + B) = 0</span>, что даёт два простых уравнения.</li>
+            </ul>
+        </section>
+
+        <!-- Пример с пошаговым решением -->
+        <h2 class="section-title" id="example">💡 Пример с решением (22.4)</h2>
+        <div class="card">
+            <p><strong>Задание:</strong> Решите уравнение:</p>
+            <div class="equation">-3(x³ - 5x - 7) - 2x + 8,2 - 3(2,3 - x³ - 5x) = 0</div>
+            
+            <div class="step">
+                <span class="step-title">Шаг 1: Раскрываем скобки</span>
+                Умножаем каждое слагаемое в скобках на множитель перед ними, внимательно следим за знаками:
+                <br> <span class="math-text">-3x³ + 15x + 21 - 2x + 8,2 - 6,9 + 3x³ + 15x = 0</span>
+            </div>
+
+            <div class="step">
+                <span class="step-title">Шаг 2: Приводим подобные слагаемые</span>
+                Группируем члены с <span class="math-text">x³</span>, с <span class="math-text">x</span> и свободные числа:
+                <br> <span class="math-text">(-3x³ + 3x³) + (15x - 2x + 15x) + (21 + 8,2 - 6,9) = 0</span>
+            </div>
+
+            <div class="step">
+                <span class="step-title">Шаг 3: Выполняем вычисления</span>
+                <br> <span class="math-text">0x³ + 28x + 22,3 = 0</span>
+                <br> <span class="math-text">28x = -22,3</span>
+            </div>
+
+            <div class="step">
+                <span class="step-title">Шаг 4: Находим x</span>
+                Делим обе части на 28:
+                <br> <span class="math-text">x = -22,3 / 28</span>
+                <br> <span class="math-text">x = -223 / 280</span>
+                <br> <strong>Ответ: x = -223/280 (или примерно -0.796)</strong>
+            </div>
+        </div>
+
+        <!-- Упражнения для самостоятельного решения -->
+        <h2 class="section-title" id="practice">✍️ Практика (реши самостоятельно)</h2>
+        <div class="exercise-grid">
+            
+            <!-- Упражнение 22.2 -->
+            <div class="exercise-item full-width">
+                <div class="ex-header">
+                    <span class="ex-number">Задание 22.2</span>
+                </div>
+                <div class="equation">-(x² - 2) - 0,3x + 7x + (x² - 0,2x) = 0</div>
+                <button class="btn" type="button" aria-expanded="false" aria-controls="hint-22-2" onclick="toggleHint('hint-22-2', this)">Показать подсказку 👇</button>
+                <div id="hint-22-2" class="hint-content">
+                    <strong>Подсказка:</strong> Раскройте скобки. Обратите внимание на знак минуса перед первой скобкой — он меняет знаки всех слагаемых внутри! Квадраты <span class="math-text">x²</span> взаимно уничтожатся. Соберите все числа с <span class="math-text">x</span> слева, а числа без <span class="math-text">x</span> перенесите вправо.
+                </div>
+            </div>
+
+            <!-- Упражнение 23.3 -->
+            <div class="exercise-item full-width">
+                <div class="ex-header">
+                    <span class="ex-number">Задание 23.3</span>
+                </div>
+                <div class="equation">3(2x - 5)² - 4(3 - 2x)² + 4x² = 0</div>
+                <button class="btn" type="button" aria-expanded="false" aria-controls="hint-23-3" onclick="toggleHint('hint-23-3', this)">Показать подсказку 👇</button>
+                <div id="hint-23-3" class="hint-content">
+                    <strong>Подсказка:</strong> Вам понадобится формула квадрата разности: <span class="math-text">(a - b)² = a² - 2ab + b²</span>. Примените её к обеим скобкам в квадрате. Затем раскройте внешние скобки, умножив результаты на 3 и на -4. Будьте предельно внимательны со знаками при умножении на отрицательное число!
+                </div>
+            </div>
+
+            <!-- Упражнение 24.1 -->
+            <div class="exercise-item">
+                <div class="ex-header">
+                    <span class="ex-number">Задание 24.1</span>
+                </div>
+                <div class="equation">2² + 3x = 0,25</div>
+                <button class="btn" type="button" aria-expanded="false" aria-controls="hint-24-1" onclick="toggleHint('hint-24-1', this)">Показать подсказку 👇</button>
+                <div id="hint-24-1" class="hint-content">
+                    <strong>Подсказка:</strong> Вычислите <span class="math-text">2²</span> (это 4). Перенесите это число в правую часть уравнения с противоположным знаком. Обратите внимание на десятичную дробь.
+                </div>
+            </div>
+
+            <!-- Упражнение 24.2 -->
+            <div class="exercise-item">
+                <div class="ex-header">
+                    <span class="ex-number">Задание 24.2</span>
+                </div>
+                <div class="equation">3x + 3²x = 9² + x</div>
+                <button class="btn" type="button" aria-expanded="false" aria-controls="hint-24-2" onclick="toggleHint('hint-24-2', this)">Показать подсказку 👇</button>
+                <div id="hint-24-2" class="hint-content">
+                    <strong>Подсказка:</strong> Сначала вычислите степени: <span class="math-text">3² = 9</span> и <span class="math-text">9² = 81</span>. Затем соберите все члены с <span class="math-text">x</span> в левой части (не забудьте поменять знак у <span class="math-text">+x</span> при переносе). Число 81 оставьте справа, а члены без x из левой части перенесите вправо.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleHint(id, button) {
+            const hint = document.getElementById(id);
+            const isOpen = hint.classList.toggle('show');
+
+            button.setAttribute('aria-expanded', String(isOpen));
+            button.textContent = isOpen ? 'Скрыть подсказку 👆' : 'Показать подсказку 👇';
+            button.style.backgroundColor = isOpen ? 'var(--text-muted)' : 'var(--primary)';
+        }
+    </script>
+</body>
+  </html>
